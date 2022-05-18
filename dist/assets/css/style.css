@@ -799,6 +799,9 @@ body {
     display: flex;
     cursor: pointer; }
 
+.handle-style {
+  cursor: pointer; }
+
 .handle__color {
   width: 30px;
   height: 30px;
