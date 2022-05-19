@@ -9,6 +9,10 @@
         overflow: auto;
         position: relative;
         margin: 0 auto;
+
+        &--lock {
+            // pointer-events: none;
+        }
     }
 
     &__left,
@@ -32,6 +36,7 @@
         }
 
         &-item {
+            position: relative;
             transition: all 0.3s ease;
         }
     }
@@ -48,9 +53,12 @@
             align-items: center;
             transition: all 0.3s ease;
         }
+
+        &-icon {
+            display: flex;
+            position: relative;
+        }
     }
-
-
 
     &__background {
         position: relative;
@@ -206,6 +214,11 @@
             width: 100%;
             margin-top: 10px;
         }
+
+        &-icon {
+            display: flex;
+            position: relative;
+        }
     }
 
     &__style {
@@ -217,6 +230,7 @@
         border-top: 2px solid #1fbeca;
         transition: opacity 0.3s ease;
         pointer-events: none;
+        cursor: default;
         // height: 0;
         // width: 0;
         opacity: 0;
@@ -318,6 +332,11 @@
                 opacity: 0.7;
             }
         }
+
+        &-icon {
+            display: flex;
+            position: relative;
+        }
     }
 
     &__next {
@@ -330,6 +349,7 @@
         width: 52px;
         height: 52px;
         z-index: 1;
+        cursor: pointer;
         background-color: white;
         transition: all 0.3s ease;
         transform: translateY(-50%);
@@ -356,6 +376,23 @@
             }
         }
 
+        &-big {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            z-index: 0;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        &-main {
+            z-index: 1;
+        }
+
         &--alt {
             display: none;
             opacity: 0;
@@ -363,6 +400,10 @@
 
         &--clicked {
             background: #1fbeca;
+
+            .handle__icon-big {
+                background: #8fdfe5;
+            }
         }
 
         &--active {
@@ -384,6 +425,10 @@
     }
     
     // extra
+
+    &--events-lock {
+        pointer-events: none;
+    }
 
     &--hide {
         opacity: 0;

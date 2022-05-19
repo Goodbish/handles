@@ -1,12 +1,21 @@
 const styleBlocks = document.querySelectorAll('.handle-style');
+const contentStyleBlocks = document.querySelectorAll('.handle__style');
+
+function toggleLoader() {
+    document.querySelector('.loader.preview').classList.toggle('preview--active');
+    document.querySelector('.handle__background').classList.toggle('handle__background--blur');
+    document.querySelector('.handle__container').classList.toggle('handle__container--lock');
+}
 
 const closeStyleBlock = document.querySelector('.handle__style-close');
-
 styleBlocks.forEach(element => {
-    element.addEventListener('click', () => {
+    function toggleBlock() {
         element.classList.toggle('handle__icon--clicked');
         element.querySelector('.handle__style').classList.toggle('handle__style--active');
-    })
+    }
+
+    element.addEventListener('click', toggleBlock);
+    element.querySelector('.handle__style-close').addEventListener('click', toggleBlock);
 
     const changeStyleButtons = element.querySelectorAll('.handle__style-option');
 
@@ -15,16 +24,16 @@ styleBlocks.forEach(element => {
             resetStyleButtons();
             element.classList.add('handle__style-option--active');
             // here function to set bg
-            stylePath = '';
+            newSrc = '';
             switch (globalSlideIndex) {
                 case 1 :
-                    stylePath = element.getAttribute('data-image');
+                    newSrc = element.getAttribute('data-image');
                     break;
                 case 2 :
-                    stylePath = element.getAttribute('data-image-secondary');
+                    newSrc = element.getAttribute('data-image-secondary');
                     break;
                 case 3 :
-                    stylePath = element.getAttribute('data-image-third');
+                    newSrc = element.getAttribute('data-image-third');
                     break;
             }
             
@@ -44,8 +53,23 @@ styleBlocks.forEach(element => {
                     console.log('no type of element');
                     break;
             }
+
+            function setNewImage() {
+                return new Promise((resolve) => {
+                    elementToChange.setAttribute('src', newSrc);
+                    elementToChange.onload = function() {
+                        resolve();
+                    }
+                })
+            }
             
-            elementToChange.setAttribute('src', stylePath);
+            async function waitNewImage() {
+                toggleLoader();
+                await setNewImage();
+                toggleLoader();
+            }
+            
+            waitNewImage();
         })
     })
 
@@ -55,6 +79,12 @@ styleBlocks.forEach(element => {
         })
     }
 });
+
+contentStyleBlocks.forEach(element => {
+    element.addEventListener('click', (e) => {
+        e.stopPropagation();
+    })
+})
 // closeStyleBlock.addEventListener('click', toggleStyleBlock);
 
 

@@ -53,7 +53,41 @@ nextButton.addEventListener('click', function() {
 
     // at this point we have all links
 
-    mainImage.setAttribute('src', newMainImage);
-    facadeImage.setAttribute('src', newFacadeImage);
-    handlesImage.setAttribute('src', newHandlesImage);
+    function setNewImage() {
+        return new Promise((resolve) => {
+            mainImage.setAttribute('src', newMainImage);
+            facadeImage.setAttribute('src', newFacadeImage);
+            handlesImage.setAttribute('src', newHandlesImage);
+    
+            let check = [false, false, false];
+            mainImage.onload = function() {
+                check[0] = true;
+                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                    resolve();
+                }
+            }
+    
+            facadeImage.onload = function() {
+                check[1] = true;
+                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                    resolve();
+                }
+            }
+    
+            handlesImage.onload = function() {
+                check[2] = true;
+                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                    resolve();
+                }
+            }
+        })
+    }
+    
+    async function waitNewImage() {
+        toggleLoader();
+        await setNewImage();
+        toggleLoader();
+    }
+    
+    waitNewImage();
 })

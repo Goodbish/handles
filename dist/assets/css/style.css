@@ -379,7 +379,15 @@ body {
 
 .handle .preview {
   font-family: 'Caveat', cursive;
-  font-size: 24px; }
+  font-size: 24px;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  opacity: 0; }
+  .handle .preview--active {
+    opacity: 1;
+    pointer-events: inherit; }
   .handle .preview__top-left {
     position: absolute;
     left: 110px;
@@ -525,6 +533,7 @@ body {
     padding: 10px 0;
     font-size: 16px;
     color: white;
+    cursor: pointer;
     text-align: center; }
 
 .handle__container {
@@ -561,6 +570,7 @@ body {
             flex-direction: column;
     row-gap: 5px; }
   .handle__left-item {
+    position: relative;
     -webkit-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease; }
@@ -583,6 +593,12 @@ body {
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease; }
+
+.handle__filter-icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative; }
 
 .handle__background {
   position: relative;
@@ -732,6 +748,11 @@ body {
             justify-content: center;
     width: 100%;
     margin-top: 10px; }
+  .handle__middle-icon {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative; }
 
 .handle__style {
   position: absolute;
@@ -746,6 +767,7 @@ body {
   -o-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease;
   pointer-events: none;
+  cursor: default;
   opacity: 0; }
   .handle__style--active {
     pointer-events: all;
@@ -835,6 +857,11 @@ body {
       border-right: 1px solid #b7b8bb; }
     .handle__right-item--opacity {
       opacity: 0.7; }
+  .handle__right-icon {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative; }
 
 .handle__next {
   position: absolute;
@@ -852,6 +879,7 @@ body {
   width: 52px;
   height: 52px;
   z-index: 1;
+  cursor: pointer;
   background-color: white;
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
@@ -882,11 +910,30 @@ body {
     transition: all .3s ease; }
   .handle__icon--hover:hover .handle__icon-main path {
     fill: #005bbf; }
+  .handle__icon-big {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    z-index: 0;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    background: transparent; }
+  .handle__icon-main {
+    z-index: 1; }
   .handle__icon--alt {
     display: none;
     opacity: 0; }
   .handle__icon--clicked {
     background: #1fbeca; }
+    .handle__icon--clicked .handle__icon-big {
+      background: #8fdfe5; }
   .handle__icon--active {
     display: none; }
   .handle__icon--active.handle__icon--alt {
@@ -899,6 +946,9 @@ body {
 
 .handle__zoom {
   margin: 0; }
+
+.handle--events-lock {
+  pointer-events: none; }
 
 .handle--hide {
   opacity: 0;

@@ -1,4 +1,33 @@
-const elementsToHide = [
+function firstScreen() {
+    let screenCounter = localStorage.getItem('screenCounter');
+    if (screenCounter === null) {
+        localStorage.setItem('screenCounter', '1');
+    } else {
+        if (screenCounter > 2) {
+            return
+        }
+        let newCounter = Number(screenCounter) + 1;
+        localStorage.setItem('screenCounter', `${newCounter}`)
+        toggleFirstScreen();
+    }
+}
+
+function toggleFirstScreen() {
+    document.querySelector('.preview').classList.toggle('preview--active');
+    document.querySelector('.handle__background').classList.toggle('handle__background--blur');
+    document.querySelector('.handle__container').classList.toggle('handle__container--lock');
+    document.querySelectorAll('.handle__left, .handle__right, .handle__middle, .handle__next').forEach(element => {
+        element.classList.toggle('handle--events-lock')
+    })
+}
+
+const firstScreenButton = document.querySelector('.preview__button')
+
+firstScreenButton.addEventListener('click', toggleFirstScreen);
+
+firstScreen();
+document.addEventListener("DOMContentLoaded", function(event) { 
+    const elementsToHide = [
     document.querySelectorAll('.handle__left .handle__left-item:not(.handle-zoom), .handle__filter-block, .handle__middle, .handle__right')
 ]
 const hideIconElement = document.querySelector('.handle__icon--alt');
@@ -12,7 +41,7 @@ function toggleHideElements() {
 }
 
 document.querySelector('.handle-zoom').addEventListener('click', toggleHideElements);
-const nextButton = document.querySelector('.handle__next');
+    const nextButton = document.querySelector('.handle__next');
 let globalSlideIndex = 1;
 const mainImage = document.querySelector('.handle__background-image--main img');
 const facadeImage = document.querySelector('.handle__background-image--2 img');
@@ -67,19 +96,62 @@ nextButton.addEventListener('click', function() {
 
     // at this point we have all links
 
-    mainImage.setAttribute('src', newMainImage);
-    facadeImage.setAttribute('src', newFacadeImage);
-    handlesImage.setAttribute('src', newHandlesImage);
+    function setNewImage() {
+        return new Promise((resolve) => {
+            mainImage.setAttribute('src', newMainImage);
+            facadeImage.setAttribute('src', newFacadeImage);
+            handlesImage.setAttribute('src', newHandlesImage);
+    
+            let check = [false, false, false];
+            mainImage.onload = function() {
+                check[0] = true;
+                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                    resolve();
+                }
+            }
+    
+            facadeImage.onload = function() {
+                check[1] = true;
+                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                    resolve();
+                }
+            }
+    
+            handlesImage.onload = function() {
+                check[2] = true;
+                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                    resolve();
+                }
+            }
+        })
+    }
+    
+    async function waitNewImage() {
+        toggleLoader();
+        await setNewImage();
+        toggleLoader();
+    }
+    
+    waitNewImage();
 })
-const styleBlocks = document.querySelectorAll('.handle-style');
+    const styleBlocks = document.querySelectorAll('.handle-style');
+const contentStyleBlocks = document.querySelectorAll('.handle__style');
+
+function toggleLoader() {
+    document.querySelector('.loader.preview').classList.toggle('preview--active');
+    document.querySelector('.handle__background').classList.toggle('handle__background--blur');
+    document.querySelector('.handle__container').classList.toggle('handle__container--lock');
+}
 
 const closeStyleBlock = document.querySelector('.handle__style-close');
-
 styleBlocks.forEach(element => {
-    element.addEventListener('click', () => {
+    function toggleBlock() {
         element.classList.toggle('handle__icon--clicked');
         element.querySelector('.handle__style').classList.toggle('handle__style--active');
-    })
+    }
+
+    element.addEventListener('click', toggleBlock);
+    element.querySelector('.handle__style-close').addEventListener('click', toggleBlock);
 
     const changeStyleButtons = element.querySelectorAll('.handle__style-option');
 
@@ -88,16 +160,16 @@ styleBlocks.forEach(element => {
             resetStyleButtons();
             element.classList.add('handle__style-option--active');
             // here function to set bg
-            stylePath = '';
+            newSrc = '';
             switch (globalSlideIndex) {
                 case 1 :
-                    stylePath = element.getAttribute('data-image');
+                    newSrc = element.getAttribute('data-image');
                     break;
                 case 2 :
-                    stylePath = element.getAttribute('data-image-secondary');
+                    newSrc = element.getAttribute('data-image-secondary');
                     break;
                 case 3 :
-                    stylePath = element.getAttribute('data-image-third');
+                    newSrc = element.getAttribute('data-image-third');
                     break;
             }
             
@@ -117,8 +189,23 @@ styleBlocks.forEach(element => {
                     console.log('no type of element');
                     break;
             }
+
+            function setNewImage() {
+                return new Promise((resolve) => {
+                    elementToChange.setAttribute('src', newSrc);
+                    elementToChange.onload = function() {
+                        resolve();
+                    }
+                })
+            }
             
-            elementToChange.setAttribute('src', stylePath);
+            async function waitNewImage() {
+                toggleLoader();
+                await setNewImage();
+                toggleLoader();
+            }
+            
+            waitNewImage();
         })
     })
 
@@ -128,9 +215,16 @@ styleBlocks.forEach(element => {
         })
     }
 });
+
+contentStyleBlocks.forEach(element => {
+    element.addEventListener('click', (e) => {
+        e.stopPropagation();
+    })
+})
 // closeStyleBlock.addEventListener('click', toggleStyleBlock);
 
 
 
 
-
+    
+});
