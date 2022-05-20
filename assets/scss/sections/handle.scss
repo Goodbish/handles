@@ -1,6 +1,9 @@
 .handle {
     @import './preview';
 
+    width: 100%;
+    overflow: auto;
+
     &__container {
         width: fit-content;
         height: 100%;
