@@ -37,33 +37,27 @@ function firstScreen() {
 
             if (localStyleImage !== null) {
                 mainImage.setAttribute('src', localStyleImage);
-                mainImage.onload = function() {
-                    check[0] = true;
-                    checkArray()
-                }
-            } else {
+            }
+
+            mainImage.onload = function() {
                 check[0] = true;
-                checkArray();
+                checkArray()
             }
 
             if (localFacadeImage !== null) {
                 facadeImage.setAttribute('src', localFacadeImage);
-                facadeImage.onload = function() {
-                    check[1] = true;
-                    checkArray();
-                }
-            } else {
+            } 
+
+            facadeImage.onload = function() {
                 check[1] = true;
-                checkArray()
+                checkArray();
             }
 
             if (localHandleImage !== null) {
                 handlesImage.setAttribute('src', localHandleImage);
-                handlesImage.onload = function() {
-                    check[2] = true;
-                    checkArray();
-                }
-            } else {
+            } 
+            
+            handlesImage.onload = function() {
                 check[2] = true;
                 checkArray();
             }
