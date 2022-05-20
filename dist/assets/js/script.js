@@ -30,47 +30,45 @@ function firstScreen() {
     if (localStyleImage !== null &&
         localFacadeImage !== null &&
         localHandleImage !== null) {
+            function setNewImage() {
+                return new Promise((resolve) => {
+                    mainImage.setAttribute('src', localStyleImage);
+                    facadeImage.setAttribute('src', localFacadeImage);
+                    handlesImage.setAttribute('src', localHandleImage);
+            
+                    let check = [false, false, false];
+                    mainImage.onload = function() {
+                        check[0] = true;
+                        if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                            resolve();
+                        }
+                    }
+            
+                    facadeImage.onload = function() {
+                        check[1] = true;
+                        if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                            resolve();
+                        }
+                    }
+            
+                    handlesImage.onload = function() {
+                        check[2] = true;
+                        if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                            resolve();
+                        }
+                    }
+                })
+            }
         
-    }
-
-    function setNewImage() {
-        return new Promise((resolve) => {
-            mainImage.setAttribute('src', localStyleImage);
-            facadeImage.setAttribute('src', localFacadeImage);
-            handlesImage.setAttribute('src', localHandleImage);
-    
-            let check = [false, false, false];
-            mainImage.onload = function() {
-                check[0] = true;
-                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
-                    resolve();
-                }
+            async function waitNewImage() {
+                toggleLoader();
+                await setNewImage();
+                // setLocalSet();
+                toggleLoader();
             }
-    
-            facadeImage.onload = function() {
-                check[1] = true;
-                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
-                    resolve();
-                }
-            }
-    
-            handlesImage.onload = function() {
-                check[2] = true;
-                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
-                    resolve();
-                }
-            }
-        })
+            
+            waitNewImage();
     }
-
-    async function waitNewImage() {
-        toggleLoader();
-        await setNewImage();
-        // setLocalSet();
-        toggleLoader();
-    }
-    
-    waitNewImage();
 }
 
 function toggleFirstScreen() {
