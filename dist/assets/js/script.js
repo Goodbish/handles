@@ -18,7 +18,7 @@ function firstScreen() {
     let screenCounter = localStorage.getItem('screenCounter');
     if (screenCounter === null) {
         localStorage.setItem('screenCounter', '1');
-        screenCounter = 1;
+        screenCounter = 0;
     }
 
     if (screenCounter <= 2) {
@@ -33,32 +33,42 @@ function firstScreen() {
     
     function setNewImage() {
         return new Promise((resolve) => {
-            if (localStyleImage !== null &&
-                localFacadeImage !== null &&
-                localHandleImage !== null) {
-                    mainImage.setAttribute('src', localStyleImage);
-                    facadeImage.setAttribute('src', localFacadeImage);
-                    handlesImage.setAttribute('src', localHandleImage);
+            let check = [false, false, false];
+
+            if (localStyleImage !== null) {
+                mainImage.setAttribute('src', localStyleImage);
+                mainImage.onload = function() {
+                    check[0] = true;
+                    checkArray()
+                }
+            } else {
+                check[0] = true;
+                checkArray();
             }
 
-    
-            let check = [false, false, false];
-            mainImage.onload = function() {
-                check[0] = true;
-                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
-                    resolve();
+            if (localFacadeImage !== null) {
+                facadeImage.setAttribute('src', localFacadeImage);
+                facadeImage.onload = function() {
+                    check[1] = true;
+                    checkArray();
                 }
-            }
-    
-            facadeImage.onload = function() {
+            } else {
                 check[1] = true;
-                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
-                    resolve();
-                }
+                checkArray()
             }
-    
-            handlesImage.onload = function() {
+
+            if (localHandleImage !== null) {
+                handlesImage.setAttribute('src', localHandleImage);
+                handlesImage.onload = function() {
+                    check[2] = true;
+                    checkArray();
+                }
+            } else {
                 check[2] = true;
+                checkArray();
+            }
+
+            function checkArray() {
                 if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
                     resolve();
                 }
@@ -69,15 +79,16 @@ function firstScreen() {
     async function waitNewImage() {
         if (screenCounter <= 2) {
             previewLoader.classList.add('preview__loading-block--show');
+        } else {
+            toggleLoader();
         }
-        // toggleLoader();
         await setNewImage();
-        // setLocalSet();
         if (screenCounter <= 2) {
-            previewButton.classList.add('.preview__button--show');
+            previewButton.classList.add('preview__button--show');
             previewLoader.classList.remove('preview__loading-block--show');
+        } else {
+            toggleLoader();
         }
-        // toggleLoader();
     }
     
     waitNewImage();
