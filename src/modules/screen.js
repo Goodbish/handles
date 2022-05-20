@@ -3,13 +3,61 @@ function firstScreen() {
     if (screenCounter === null) {
         localStorage.setItem('screenCounter', '1');
     } else {
-        if (screenCounter > 2) {
-            return
+        if (screenCounter <= 2) {
+            let newCounter = Number(screenCounter) + 1;
+            localStorage.setItem('screenCounter', `${newCounter}`)
+            toggleFirstScreen();
         }
-        let newCounter = Number(screenCounter) + 1;
-        localStorage.setItem('screenCounter', `${newCounter}`)
-        toggleFirstScreen();
     }
+
+    const localStyleImage = localStorage.getItem('style');
+    const localFacadeImage = localStorage.getItem('facade');
+    const localHandleImage = localStorage.getItem('handle');
+    
+    if (localStyleImage !== null &&
+        localFacadeImage !== null &&
+        localHandleImage !== null) {
+        
+    }
+
+    function setNewImage() {
+        return new Promise((resolve) => {
+            mainImage.setAttribute('src', localStyleImage);
+            facadeImage.setAttribute('src', localFacadeImage);
+            handlesImage.setAttribute('src', localHandleImage);
+    
+            let check = [false, false, false];
+            mainImage.onload = function() {
+                check[0] = true;
+                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                    resolve();
+                }
+            }
+    
+            facadeImage.onload = function() {
+                check[1] = true;
+                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                    resolve();
+                }
+            }
+    
+            handlesImage.onload = function() {
+                check[2] = true;
+                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                    resolve();
+                }
+            }
+        })
+    }
+
+    async function waitNewImage() {
+        toggleLoader();
+        await setNewImage();
+        // setLocalSet();
+        toggleLoader();
+    }
+    
+    waitNewImage();
 }
 
 function toggleFirstScreen() {

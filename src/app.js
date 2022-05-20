@@ -1,3 +1,4 @@
+@@include('./modules/global.js')
 @@include('./modules/screen.js')
 document.addEventListener("DOMContentLoaded", function(event) { 
     @@include('./modules/hide.js')

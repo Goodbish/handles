@@ -1,8 +1,5 @@
 const nextButton = document.querySelector('.handle__next');
-let globalSlideIndex = 1;
-const mainImage = document.querySelector('.handle__background-image--main img');
-const facadeImage = document.querySelector('.handle__background-image--2 img');
-const handlesImage = document.querySelector('.handle__background-image--3 img');
+
 
 nextButton.addEventListener('click', function() {
     let activeElements = document.querySelectorAll('[data-active="true"]');
@@ -10,11 +7,11 @@ nextButton.addEventListener('click', function() {
     if (globalSlideIndex > 3) {
         globalSlideIndex = 1;
     }
+    // set local angle index
+    localStorage.setItem('angle', globalSlideIndex);
     
+
     // get all active images to change
-    let newMainImage = '';
-    let newFacadeImage = '';
-    let newHandlesImage = '';
 
     activeElements.forEach(element => {
         let dataType = element.getAttribute('data-type');
@@ -86,8 +83,15 @@ nextButton.addEventListener('click', function() {
     async function waitNewImage() {
         toggleLoader();
         await setNewImage();
+        setLocalSet();
         toggleLoader();
     }
     
     waitNewImage();
+
+    function setLocalSet() {
+        localStorage.setItem('style', newMainImage);
+        localStorage.setItem('facade', newFacadeImage);
+        localStorage.setItem('handle', newHandlesImage);
+    }
 })

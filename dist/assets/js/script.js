@@ -1,15 +1,76 @@
+const mainImage = document.querySelector('.handle__background-image--main img');
+const facadeImage = document.querySelector('.handle__background-image--2 img');
+const handlesImage = document.querySelector('.handle__background-image--3 img');
+let newMainImage = '';
+let newFacadeImage = '';
+let newHandlesImage = '';
+let globalSlideIndex = 1;
+
+function toggleLoader() {
+    document.querySelector('.loader.preview').classList.toggle('preview--active');
+    document.querySelector('.handle__background').classList.toggle('handle__background--blur');
+    document.querySelector('.handle__container').classList.toggle('handle__container--lock');
+}
 function firstScreen() {
     let screenCounter = localStorage.getItem('screenCounter');
     if (screenCounter === null) {
         localStorage.setItem('screenCounter', '1');
     } else {
-        if (screenCounter > 2) {
-            return
+        if (screenCounter <= 2) {
+            let newCounter = Number(screenCounter) + 1;
+            localStorage.setItem('screenCounter', `${newCounter}`)
+            toggleFirstScreen();
         }
-        let newCounter = Number(screenCounter) + 1;
-        localStorage.setItem('screenCounter', `${newCounter}`)
-        toggleFirstScreen();
     }
+
+    const localStyleImage = localStorage.getItem('style');
+    const localFacadeImage = localStorage.getItem('facade');
+    const localHandleImage = localStorage.getItem('handle');
+    
+    if (localStyleImage !== null &&
+        localFacadeImage !== null &&
+        localHandleImage !== null) {
+        
+    }
+
+    function setNewImage() {
+        return new Promise((resolve) => {
+            mainImage.setAttribute('src', localStyleImage);
+            facadeImage.setAttribute('src', localFacadeImage);
+            handlesImage.setAttribute('src', localHandleImage);
+    
+            let check = [false, false, false];
+            mainImage.onload = function() {
+                check[0] = true;
+                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                    resolve();
+                }
+            }
+    
+            facadeImage.onload = function() {
+                check[1] = true;
+                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                    resolve();
+                }
+            }
+    
+            handlesImage.onload = function() {
+                check[2] = true;
+                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                    resolve();
+                }
+            }
+        })
+    }
+
+    async function waitNewImage() {
+        toggleLoader();
+        await setNewImage();
+        // setLocalSet();
+        toggleLoader();
+    }
+    
+    waitNewImage();
 }
 
 function toggleFirstScreen() {
@@ -42,10 +103,7 @@ function toggleHideElements() {
 
 document.querySelector('.handle-zoom').addEventListener('click', toggleHideElements);
     const nextButton = document.querySelector('.handle__next');
-let globalSlideIndex = 1;
-const mainImage = document.querySelector('.handle__background-image--main img');
-const facadeImage = document.querySelector('.handle__background-image--2 img');
-const handlesImage = document.querySelector('.handle__background-image--3 img');
+
 
 nextButton.addEventListener('click', function() {
     let activeElements = document.querySelectorAll('[data-active="true"]');
@@ -53,11 +111,11 @@ nextButton.addEventListener('click', function() {
     if (globalSlideIndex > 3) {
         globalSlideIndex = 1;
     }
+    // set local angle index
+    localStorage.setItem('angle', globalSlideIndex);
     
+
     // get all active images to change
-    let newMainImage = '';
-    let newFacadeImage = '';
-    let newHandlesImage = '';
 
     activeElements.forEach(element => {
         let dataType = element.getAttribute('data-type');
@@ -129,19 +187,20 @@ nextButton.addEventListener('click', function() {
     async function waitNewImage() {
         toggleLoader();
         await setNewImage();
+        setLocalSet();
         toggleLoader();
     }
     
     waitNewImage();
+
+    function setLocalSet() {
+        localStorage.setItem('style', newMainImage);
+        localStorage.setItem('facade', newFacadeImage);
+        localStorage.setItem('handle', newHandlesImage);
+    }
 })
     const styleBlocks = document.querySelectorAll('.handle-style');
 const contentStyleBlocks = document.querySelectorAll('.handle__style');
-
-function toggleLoader() {
-    document.querySelector('.loader.preview').classList.toggle('preview--active');
-    document.querySelector('.handle__background').classList.toggle('handle__background--blur');
-    document.querySelector('.handle__container').classList.toggle('handle__container--lock');
-}
 
 const closeStyleBlock = document.querySelector('.handle__style-close');
 styleBlocks.forEach(element => {
@@ -160,6 +219,7 @@ styleBlocks.forEach(element => {
             resetStyleButtons();
             element.classList.add('handle__style-option--active');
             // here function to set bg
+            localStorage.getItem('angle');
             newSrc = '';
             switch (globalSlideIndex) {
                 case 1 :
@@ -177,13 +237,16 @@ styleBlocks.forEach(element => {
             let elementToChange;
             switch (styleType) {
                 case 'style' :
-                    elementToChange = document.querySelector('.handle__background-image--main img');
+                    elementToChange = mainImage;
+                    localStorage.setItem('style', newSrc);
                     break;
                 case 'facade' : 
-                    elementToChange = document.querySelector('.handle__background-image--2 img');
+                    elementToChange = facadeImage;
+                    localStorage.setItem('facade', newSrc);
                     break;
                 case 'handles' :
-                    elementToChange = document.querySelector('.handle__background-image--3 img');
+                    elementToChange = handlesImage;
+                    localStorage.setItem('handles', newSrc);
                     break;
                 default: 
                     console.log('no type of element');

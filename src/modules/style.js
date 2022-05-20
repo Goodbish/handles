@@ -1,12 +1,6 @@
 const styleBlocks = document.querySelectorAll('.handle-style');
 const contentStyleBlocks = document.querySelectorAll('.handle__style');
 
-function toggleLoader() {
-    document.querySelector('.loader.preview').classList.toggle('preview--active');
-    document.querySelector('.handle__background').classList.toggle('handle__background--blur');
-    document.querySelector('.handle__container').classList.toggle('handle__container--lock');
-}
-
 const closeStyleBlock = document.querySelector('.handle__style-close');
 styleBlocks.forEach(element => {
     function toggleBlock() {
@@ -24,6 +18,7 @@ styleBlocks.forEach(element => {
             resetStyleButtons();
             element.classList.add('handle__style-option--active');
             // here function to set bg
+            localStorage.getItem('angle');
             newSrc = '';
             switch (globalSlideIndex) {
                 case 1 :
@@ -41,13 +36,16 @@ styleBlocks.forEach(element => {
             let elementToChange;
             switch (styleType) {
                 case 'style' :
-                    elementToChange = document.querySelector('.handle__background-image--main img');
+                    elementToChange = mainImage;
+                    localStorage.setItem('style', newSrc);
                     break;
                 case 'facade' : 
-                    elementToChange = document.querySelector('.handle__background-image--2 img');
+                    elementToChange = facadeImage;
+                    localStorage.setItem('facade', newSrc);
                     break;
                 case 'handles' :
-                    elementToChange = document.querySelector('.handle__background-image--3 img');
+                    elementToChange = handlesImage;
+                    localStorage.setItem('handles', newSrc);
                     break;
                 default: 
                     console.log('no type of element');
