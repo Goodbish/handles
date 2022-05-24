@@ -560,6 +560,10 @@ body {
     overflow: auto;
     position: relative;
     margin: 0 auto; }
+    .handle__container--lock {
+      pointer-events: none; }
+    .handle__container--zoom-cursor {
+      cursor: crosshair; }
   .handle__left, .handle__right, .handle__middle {
     position: absolute;
     top: 0;
@@ -584,6 +588,7 @@ body {
       row-gap: 5px; }
     .handle__left-item {
       position: relative;
+      cursor: pointer;
       -webkit-transition: all 0.3s ease;
       -o-transition: all 0.3s ease;
       transition: all 0.3s ease; }
@@ -615,7 +620,8 @@ body {
     -webkit-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    pointer-events: none; }
+    pointer-events: none;
+    overflow: hidden; }
     .handle__background-img {
       display: block;
       max-width: 100vw;
@@ -692,8 +698,6 @@ body {
       transition: all 0.3s ease; }
       .handle__middle-item:not(:last-child) {
         border-right: 1px solid #b7b8bb; }
-      .handle__middle-item:nth-child(3) {
-        border-right: 4px solid black; }
       .handle__middle-item--column {
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
@@ -779,6 +783,13 @@ body {
     pointer-events: none;
     cursor: default;
     opacity: 0; }
+    .handle__style--right {
+      top: 0;
+      left: inherit;
+      right: 0;
+      -webkit-transform: translateX(100%);
+          -ms-transform: translateX(100%);
+              transform: translateX(100%); }
     .handle__style--active {
       pointer-events: all;
       opacity: 1; }
@@ -808,8 +819,8 @@ body {
          -moz-column-gap: 20px;
               column-gap: 20px;
       padding: 14px 20px;
-      background: #eeefee; }
-    .handle__style-option {
+      background: rgba(238, 239, 238, 0.9); }
+    .handle__style-item {
       padding: 5px 10px;
       outline: 1px solid transparent;
       line-height: 1;
@@ -817,10 +828,10 @@ body {
       -webkit-transition: all 0.3s ease;
       -o-transition: all 0.3s ease;
       transition: all 0.3s ease; }
-      .handle__style-option--active {
+      .handle__style-item.handle__option--active {
         color: #1fbeca;
         outline: 1px solid #1fbeca; }
-      .handle__style-option:hover {
+      .handle__style-item:hover {
         color: #1fbeca; }
     .handle__style-text {
       text-transform: uppercase;
@@ -832,6 +843,12 @@ body {
       cursor: pointer; }
   .handle-style {
     cursor: pointer; }
+    .handle-style__middle {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex; }
+      .handle-style__middle:not(:last-child) {
+        border-right: 4px solid black; }
   .handle__color {
     width: 30px;
     height: 30px;
@@ -948,8 +965,77 @@ body {
       opacity: 1; }
     .handle__icon-text {
       font-size: 14px; }
+  .handle__facade {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    max-width: 400px;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    gap: 12px; }
+    .handle__facade-item {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      cursor: pointer;
+      row-gap: 6px; }
+      .handle__facade-item.handle__option--active .handle__facade-block, .handle__facade-item:hover .handle__facade-block {
+        outline: 1px solid #1fbeca; }
+      .handle__facade-item.handle__option--active .handle__facade-text {
+        font-weight: bold;
+        color: #000; }
+    .handle__facade-block {
+      display: -ms-grid;
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      outline: 1px solid transparent;
+      -webkit-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+      transition: all 0.3s ease; }
+    .handle__facade-circle {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%; }
+    .handle__facade-text {
+      font-size: 10px;
+      text-align: center;
+      color: #020a0a; }
   .handle__zoom {
-    margin: 0; }
+    margin: 0;
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    -o-transition: transform 0.3s ease;
+    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease; }
+    .handle__zoom--active {
+      -webkit-transform: scale(1.66);
+          -ms-transform: scale(1.66);
+              transform: scale(1.66); }
+  .handle-zoom svg path {
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease; }
+  .handle-zoom--active svg path {
+    d: path("M 28.495 27.485 L 26.488 29.492 C 26.128 29.852 25.658 30.32 25.192 30.32 C 24.744 30.32 24.3 29.865 23.963 29.529 L 15.245 20.81 C 13.892 21.419 12.398 21.765 10.821 21.765 C 4.854 21.765 0 16.911 0 10.943 C 0 4.976 4.854 0.121 10.821 0.121 C 16.788 0.121 21.643 4.976 21.643 10.943 C 21.643 12.981 21.66 14.882 20.83 16.512 L 28.532 24.96 C 29.217 25.646 29.201 26.779 28.495 27.485 Z M 10.821 2.41 C 5.912 2.41 1.919 6.35 1.919 10.943 C 1.919 15.852 5.912 19.846 10.821 19.846 C 15.73 19.846 19.724 15.852 19.724 10.943 C 19.724 6.35 15.73 2.41 10.821 2.41 Z M 18.936 18.79 C 18.356 18.738 17.702 19.328 16.98 19.831 L 18.321 21.172 L 20.175 19.318 L 18.936 18.79 Z M 21.533 20.676 L 19.679 22.529 L 25.207 28.58 L 27.61 26.204 L 21.533 20.676 Z M 14.93 11.91 L 11.765 11.91 L 9.846 11.91 L 6.682 11.91 C 6.152 11.91 5.722 11.48 5.722 10.95 C 5.722 10.42 6.152 9.99 6.682 9.99 L 9.846 9.99 L 11.765 9.99 L 14.93 9.99 C 15.46 9.99 15.889 10.42 15.889 10.95 C 15.889 11.48 15.46 11.91 14.93 11.91 Z"); }
+  .handle .filter {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 400px; }
+    .handle .filter__search-container {
+      background: white;
+      padding: 14px 18px 8px; }
   .handle--events-lock {
     pointer-events: none; }
   .handle--hide {

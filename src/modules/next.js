@@ -15,16 +15,20 @@ nextButton.addEventListener('click', function() {
 
     activeElements.forEach(element => {
         let dataType = element.getAttribute('data-type');
+        let newText = element.querySelector('span').innerHTML;
 
         switch (dataType) {
             case 'style' :
                 newMainImage = chooseAngle(element, newMainImage);
+                localStorage.setItem('styleText', newText);
                 break;
             case 'facade' : 
                 newFacadeImage = chooseAngle(element, newFacadeImage);
+                localStorage.setItem('facadeText', newText);
                 break;
             case 'handles' :
                 newHandlesImage = chooseAngle(element, newHandlesImage);
+                localStorage.setItem('handlesText', newText);
                 break;
             default: 
                 console.log('no type of element');

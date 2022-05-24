@@ -15,7 +15,11 @@
         margin: 0 auto;
 
         &--lock {
-            // pointer-events: none;
+            pointer-events: none;
+        }
+
+        &--zoom-cursor {
+            cursor: crosshair;
         }
     }
 
@@ -41,6 +45,7 @@
 
         &-item {
             position: relative;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
     }
@@ -68,6 +73,7 @@
         position: relative;
         transition: all 0.3s ease;
         pointer-events: none;
+        overflow: hidden;
 
         &-img {
             display: block;
@@ -151,10 +157,6 @@
 
             &:not(:last-child) {
                 border-right: 1px solid rgb(183, 184, 187);
-            }
-
-            &:nth-child(3) {
-                border-right: 4px solid black;
             }
 
             &--column {
@@ -241,6 +243,13 @@
         // width: 0;
         opacity: 0;
 
+        &--right {
+            top: 0;
+            left: inherit;
+            right: 0;
+            transform: translateX(100%);
+        }
+
         &--active {
             // width: inherit;
             // height: inherit;
@@ -267,17 +276,17 @@
             // justify-content: space-between;
             column-gap: 20px;
             padding: 14px 20px;
-            background: #eeefee;
+            background: rgba($color: #eeefee, $alpha: 0.9);
         }
 
-        &-option {
+        &-item {
             padding: 5px 10px;
             outline: 1px solid transparent;
             line-height: 1;
             cursor: pointer;
             transition: all 0.3s ease;
 
-            &--active {
+            &.handle__option--active {
                 color: #1fbeca;
                 outline: 1px solid #1fbeca;
             }
@@ -300,6 +309,14 @@
 
     &-style {
         cursor: pointer;
+
+        &__middle {
+            display: flex;
+
+            &:not(:last-child) {
+                border-right: 4px solid black;
+            }
+        }
     }
 
     &__color {
@@ -426,9 +443,80 @@
         }
     }
 
+    &__facade {
+        display: flex;
+        max-width: 400px;
+        flex-wrap: wrap;
+        gap: 12px;
+
+        &-item {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            row-gap: 6px;
+
+            &.handle__option--active, 
+            &:hover {
+                .handle__facade-block {
+                    outline: 1px solid rgb(31, 190, 202);
+                }
+            }
+
+            &.handle__option--active {
+                .handle__facade-text {
+                    font-weight: bold;
+                    color: #000;
+                }
+            }
+        }
+
+        &-block {
+            display: grid;
+            place-items: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            outline: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        &-circle {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+        }
+         
+        &-text {
+            font-size: 10px;
+            text-align: center;
+            color: #020a0a;
+        }
+    }
+
     &__zoom {
         margin: 0;
+        transition: transform 0.3s ease;
+        
+        &--active {
+            transform: scale(1.66);
+        }
     }
+
+    &-zoom {
+        svg path {
+            transition: all 0.3s ease;
+        }
+
+        &--active {
+            svg path {
+                d: path('M 28.495 27.485 L 26.488 29.492 C 26.128 29.852 25.658 30.32 25.192 30.32 C 24.744 30.32 24.3 29.865 23.963 29.529 L 15.245 20.81 C 13.892 21.419 12.398 21.765 10.821 21.765 C 4.854 21.765 0 16.911 0 10.943 C 0 4.976 4.854 0.121 10.821 0.121 C 16.788 0.121 21.643 4.976 21.643 10.943 C 21.643 12.981 21.66 14.882 20.83 16.512 L 28.532 24.96 C 29.217 25.646 29.201 26.779 28.495 27.485 Z M 10.821 2.41 C 5.912 2.41 1.919 6.35 1.919 10.943 C 1.919 15.852 5.912 19.846 10.821 19.846 C 15.73 19.846 19.724 15.852 19.724 10.943 C 19.724 6.35 15.73 2.41 10.821 2.41 Z M 18.936 18.79 C 18.356 18.738 17.702 19.328 16.98 19.831 L 18.321 21.172 L 20.175 19.318 L 18.936 18.79 Z M 21.533 20.676 L 19.679 22.529 L 25.207 28.58 L 27.61 26.204 L 21.533 20.676 Z M 14.93 11.91 L 11.765 11.91 L 9.846 11.91 L 6.682 11.91 C 6.152 11.91 5.722 11.48 5.722 10.95 C 5.722 10.42 6.152 9.99 6.682 9.99 L 9.846 9.99 L 11.765 9.99 L 14.93 9.99 C 15.46 9.99 15.889 10.42 15.889 10.95 C 15.889 11.48 15.46 11.91 14.93 11.91 Z');
+            }
+        }
+    }
+
+    // sections
+
+    @import './filter.scss';
     
     // extra
 

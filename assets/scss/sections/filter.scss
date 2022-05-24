@@ -1,0 +1,17 @@
+.filter {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+
+    &-header {
+        
+    }
+     
+    &__search {
+
+        &-container {
+            background: white;
+            padding: 14px 18px 8px;
+        }
+    }
+}

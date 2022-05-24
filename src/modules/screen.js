@@ -17,36 +17,55 @@ function firstScreen() {
     const localStyleImage = localStorage.getItem('style');
     const localFacadeImage = localStorage.getItem('facade');
     const localHandleImage = localStorage.getItem('handle');
+
+    const localStyleText = localStorage.getItem('styleText');
+    const localFacadeText = localStorage.getItem('facadeText');
+    const localHandleText = localStorage.getItem('handlesText');
     
     function setNewImage() {
         return new Promise((resolve) => {
             let check = [false, false, false];
-
-            if (localStyleImage !== null) {
-                mainImage.setAttribute('src', localStyleImage);
-            }
 
             mainImage.onload = function() {
                 check[0] = true;
                 checkArray()
             }
 
-            if (localFacadeImage !== null) {
-                facadeImage.setAttribute('src', localFacadeImage);
-            } 
+            if (localStyleImage !== null) {
+                mainImage.setAttribute('src', localStyleImage);
+            } else {
+                let initiaMainImage = mainImage.getAttribute('src');
+                mainImage.setAttribute('src', initiaMainImage);
+            }
 
             facadeImage.onload = function() {
                 check[1] = true;
                 checkArray();
             }
 
-            if (localHandleImage !== null) {
-                handlesImage.setAttribute('src', localHandleImage);
-            } 
+            if (localFacadeImage !== null) {
+                facadeImage.setAttribute('src', localFacadeImage);
+            } else {
+                let initiaFacadeImage = mainImage.getAttribute('src');
+                facadeImage.setAttribute('src', initiaFacadeImage);
+            }
             
-            handlesImage.onload = function() {
+
+            if (handlesImage.copmlete) {
                 check[2] = true;
                 checkArray();
+            } else {
+                handlesImage.onload = function() {
+                    check[2] = true;
+                    checkArray();
+                }
+            }
+
+            if (localHandleImage !== null) {
+                handlesImage.setAttribute('src', localHandleImage);
+            } else {
+                let initiaHandlesImage = mainImage.getAttribute('src');
+                handlesImage.setAttribute('src', initiaHandlesImage);
             }
 
             function checkArray() {
@@ -78,7 +97,7 @@ function firstScreen() {
 function toggleFirstScreen() {
     document.querySelector('#preview').classList.toggle('preview--active');
     document.querySelector('.handle__background').classList.toggle('handle__background--blur');
-    document.querySelector('.handle__container').classList.toggle('handle__container--lock');
+    // document.querySelector('.handle__container').classList.toggle('handle__container--lock');
     document.querySelectorAll('.handle__left, .handle__right, .handle__middle, .handle__next').forEach(element => {
         element.classList.toggle('handle--events-lock')
     })

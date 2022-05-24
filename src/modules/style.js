@@ -4,48 +4,62 @@ const contentStyleBlocks = document.querySelectorAll('.handle__style');
 const closeStyleBlock = document.querySelector('.handle__style-close');
 styleBlocks.forEach(element => {
     function toggleBlock() {
-        element.classList.toggle('handle__icon--clicked');
+        resetStyleBlocks(element);
+
+        console.log(element);
+        if (!element.classList.contains('handle__icon--hover')) {
+            element.querySelector('.handle__icon--hover').classList.toggle('handle__icon--clicked');
+        } else {
+            element.classList.toggle('handle__icon--clicked');
+        }
         element.querySelector('.handle__style').classList.toggle('handle__style--active');
     }
 
     element.addEventListener('click', toggleBlock);
-    element.querySelector('.handle__style-close').addEventListener('click', toggleBlock);
+    element.querySelector('.handle__style-close').addEventListener('click', resetStyleBlocks);
 
-    const changeStyleButtons = element.querySelectorAll('.handle__style-option');
+    const changeStyleButtons = element.querySelectorAll('.handle__option');
 
     changeStyleButtons.forEach(element => {
         element.addEventListener('click', function() {
             resetStyleButtons();
-            element.classList.add('handle__style-option--active');
+            element.classList.add('handle__option--active');
             // here function to set bg
-            localStorage.getItem('angle');
+            let angle = localStorage.getItem('angle');
             newSrc = '';
-            switch (globalSlideIndex) {
-                case 1 :
+            
+            switch (angle) {
+                case '1' :
                     newSrc = element.getAttribute('data-image');
                     break;
-                case 2 :
+                case '2' :
                     newSrc = element.getAttribute('data-image-secondary');
                     break;
-                case 3 :
+                case '3' :
                     newSrc = element.getAttribute('data-image-third');
                     break;
+                default: 
+                    newSrc = element.getAttribute('data-image');
             }
             
+            let newText = element.querySelector('span').innerHTML;
             let styleType = element.getAttribute('data-type');
             let elementToChange;
             switch (styleType) {
                 case 'style' :
                     elementToChange = mainImage;
                     localStorage.setItem('style', newSrc);
+                    localStorage.setItem('styleText', newText);
                     break;
                 case 'facade' : 
                     elementToChange = facadeImage;
                     localStorage.setItem('facade', newSrc);
+                    localStorage.setItem('facadeText', newText);
                     break;
                 case 'handles' :
                     elementToChange = handlesImage;
                     localStorage.setItem('handles', newSrc);
+                    localStorage.setItem('handlesText', newText);
                     break;
                 default: 
                     console.log('no type of element');
@@ -73,7 +87,22 @@ styleBlocks.forEach(element => {
 
     function resetStyleButtons() {
         changeStyleButtons.forEach(element => {
-            element.classList.remove('handle__style-option--active');
+            element.classList.remove('handle__option--active');
+        })
+    }
+
+    function resetStyleBlocks(exception) {
+        styleBlocks.forEach(element => {
+            if (element !== exception || exception === null) {
+                if (!element.classList.contains('handle__icon--hover')) {
+                    element.querySelector('.handle__icon--hover').classList.remove('handle__icon--clicked');
+                } else {
+                    element.classList.remove('handle__icon--clicked');
+                }
+                
+                element.querySelector('.handle__style').classList.remove('handle__style--active');
+            }
+            
         })
     }
 });

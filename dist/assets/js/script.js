@@ -1,4 +1,6 @@
-const mainImage = document.querySelector('.handle__background-image--main img');
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+    const mainImage = document.querySelector('.handle__background-image--main img');
 const facadeImage = document.querySelector('.handle__background-image--2 img');
 const handlesImage = document.querySelector('.handle__background-image--3 img');
 let newMainImage = '';
@@ -11,7 +13,7 @@ function toggleLoader() {
     document.querySelector('.handle__background').classList.toggle('handle__background--blur');
     document.querySelector('.handle__container').classList.toggle('handle__container--lock');
 }
-function firstScreen() {
+    function firstScreen() {
     const previewLoader = document.querySelector('#preview .preview__loading-block');
     const previewButton = document.querySelector('#preview .preview__button');
 
@@ -30,36 +32,55 @@ function firstScreen() {
     const localStyleImage = localStorage.getItem('style');
     const localFacadeImage = localStorage.getItem('facade');
     const localHandleImage = localStorage.getItem('handle');
+
+    const localStyleText = localStorage.getItem('styleText');
+    const localFacadeText = localStorage.getItem('facadeText');
+    const localHandleText = localStorage.getItem('handlesText');
     
     function setNewImage() {
         return new Promise((resolve) => {
             let check = [false, false, false];
-
-            if (localStyleImage !== null) {
-                mainImage.setAttribute('src', localStyleImage);
-            }
 
             mainImage.onload = function() {
                 check[0] = true;
                 checkArray()
             }
 
-            if (localFacadeImage !== null) {
-                facadeImage.setAttribute('src', localFacadeImage);
-            } 
+            if (localStyleImage !== null) {
+                mainImage.setAttribute('src', localStyleImage);
+            } else {
+                let initiaMainImage = mainImage.getAttribute('src');
+                mainImage.setAttribute('src', initiaMainImage);
+            }
 
             facadeImage.onload = function() {
                 check[1] = true;
                 checkArray();
             }
 
-            if (localHandleImage !== null) {
-                handlesImage.setAttribute('src', localHandleImage);
-            } 
+            if (localFacadeImage !== null) {
+                facadeImage.setAttribute('src', localFacadeImage);
+            } else {
+                let initiaFacadeImage = mainImage.getAttribute('src');
+                facadeImage.setAttribute('src', initiaFacadeImage);
+            }
             
-            handlesImage.onload = function() {
+
+            if (handlesImage.copmlete) {
                 check[2] = true;
                 checkArray();
+            } else {
+                handlesImage.onload = function() {
+                    check[2] = true;
+                    checkArray();
+                }
+            }
+
+            if (localHandleImage !== null) {
+                handlesImage.setAttribute('src', localHandleImage);
+            } else {
+                let initiaHandlesImage = mainImage.getAttribute('src');
+                handlesImage.setAttribute('src', initiaHandlesImage);
             }
 
             function checkArray() {
@@ -91,7 +112,7 @@ function firstScreen() {
 function toggleFirstScreen() {
     document.querySelector('#preview').classList.toggle('preview--active');
     document.querySelector('.handle__background').classList.toggle('handle__background--blur');
-    document.querySelector('.handle__container').classList.toggle('handle__container--lock');
+    // document.querySelector('.handle__container').classList.toggle('handle__container--lock');
     document.querySelectorAll('.handle__left, .handle__right, .handle__middle, .handle__next').forEach(element => {
         element.classList.toggle('handle--events-lock')
     })
@@ -102,21 +123,22 @@ const firstScreenButton = document.querySelector('.preview__button')
 firstScreenButton.addEventListener('click', toggleFirstScreen);
 
 firstScreen();
-document.addEventListener("DOMContentLoaded", function(event) { 
     const elementsToHide = [
-    document.querySelectorAll('.handle__left .handle__left-item:not(.handle-zoom), .handle__filter-block, .handle__middle, .handle__right')
+    document.querySelectorAll('.handle__left .handle__left-item:not(.handle-hide), .handle__filter-block, .handle__middle, .handle__right')
 ]
 const hideIconElement = document.querySelector('.handle__icon--alt');
 
-function toggleHideElements() {
-    elementsToHide[0].forEach(element => {
+function toggleHideElements(hideElements) {
+    hideElements[0].forEach(element => {
         element.classList.toggle('handle--hide');
     })
-    document.querySelector('.handle-zoom .handle__icon').classList.toggle('handle__icon--active');
+    document.querySelector('.handle-hide .handle__icon').classList.toggle('handle__icon--active');
     hideIconElement.classList.toggle('handle__icon--active');
 }
 
-document.querySelector('.handle-zoom').addEventListener('click', toggleHideElements);
+document.querySelector('.handle-hide').addEventListener('click', function() {
+    toggleHideElements(elementsToHide);
+});
     const nextButton = document.querySelector('.handle__next');
 
 
@@ -134,16 +156,20 @@ nextButton.addEventListener('click', function() {
 
     activeElements.forEach(element => {
         let dataType = element.getAttribute('data-type');
+        let newText = element.querySelector('span').innerHTML;
 
         switch (dataType) {
             case 'style' :
                 newMainImage = chooseAngle(element, newMainImage);
+                localStorage.setItem('styleText', newText);
                 break;
             case 'facade' : 
                 newFacadeImage = chooseAngle(element, newFacadeImage);
+                localStorage.setItem('facadeText', newText);
                 break;
             case 'handles' :
                 newHandlesImage = chooseAngle(element, newHandlesImage);
+                localStorage.setItem('handlesText', newText);
                 break;
             default: 
                 console.log('no type of element');
@@ -220,48 +246,62 @@ const contentStyleBlocks = document.querySelectorAll('.handle__style');
 const closeStyleBlock = document.querySelector('.handle__style-close');
 styleBlocks.forEach(element => {
     function toggleBlock() {
-        element.classList.toggle('handle__icon--clicked');
+        resetStyleBlocks(element);
+
+        console.log(element);
+        if (!element.classList.contains('handle__icon--hover')) {
+            element.querySelector('.handle__icon--hover').classList.toggle('handle__icon--clicked');
+        } else {
+            element.classList.toggle('handle__icon--clicked');
+        }
         element.querySelector('.handle__style').classList.toggle('handle__style--active');
     }
 
     element.addEventListener('click', toggleBlock);
-    element.querySelector('.handle__style-close').addEventListener('click', toggleBlock);
+    element.querySelector('.handle__style-close').addEventListener('click', resetStyleBlocks);
 
-    const changeStyleButtons = element.querySelectorAll('.handle__style-option');
+    const changeStyleButtons = element.querySelectorAll('.handle__option');
 
     changeStyleButtons.forEach(element => {
         element.addEventListener('click', function() {
             resetStyleButtons();
-            element.classList.add('handle__style-option--active');
+            element.classList.add('handle__option--active');
             // here function to set bg
-            localStorage.getItem('angle');
+            let angle = localStorage.getItem('angle');
             newSrc = '';
-            switch (globalSlideIndex) {
-                case 1 :
+            
+            switch (angle) {
+                case '1' :
                     newSrc = element.getAttribute('data-image');
                     break;
-                case 2 :
+                case '2' :
                     newSrc = element.getAttribute('data-image-secondary');
                     break;
-                case 3 :
+                case '3' :
                     newSrc = element.getAttribute('data-image-third');
                     break;
+                default: 
+                    newSrc = element.getAttribute('data-image');
             }
             
+            let newText = element.querySelector('span').innerHTML;
             let styleType = element.getAttribute('data-type');
             let elementToChange;
             switch (styleType) {
                 case 'style' :
                     elementToChange = mainImage;
                     localStorage.setItem('style', newSrc);
+                    localStorage.setItem('styleText', newText);
                     break;
                 case 'facade' : 
                     elementToChange = facadeImage;
                     localStorage.setItem('facade', newSrc);
+                    localStorage.setItem('facadeText', newText);
                     break;
                 case 'handles' :
                     elementToChange = handlesImage;
                     localStorage.setItem('handles', newSrc);
+                    localStorage.setItem('handlesText', newText);
                     break;
                 default: 
                     console.log('no type of element');
@@ -289,7 +329,22 @@ styleBlocks.forEach(element => {
 
     function resetStyleButtons() {
         changeStyleButtons.forEach(element => {
-            element.classList.remove('handle__style-option--active');
+            element.classList.remove('handle__option--active');
+        })
+    }
+
+    function resetStyleBlocks(exception) {
+        styleBlocks.forEach(element => {
+            if (element !== exception || exception === null) {
+                if (!element.classList.contains('handle__icon--hover')) {
+                    element.querySelector('.handle__icon--hover').classList.remove('handle__icon--clicked');
+                } else {
+                    element.classList.remove('handle__icon--clicked');
+                }
+                
+                element.querySelector('.handle__style').classList.remove('handle__style--active');
+            }
+            
         })
     }
 });
@@ -305,4 +360,55 @@ contentStyleBlocks.forEach(element => {
 
 
     
+    const zoomBlock = document.querySelector('.handle__zoom');
+const zoomButton = document.querySelector('.handle-zoom');
+let zoomLever = false;
+const zoomElementsToHide = [
+    document.querySelectorAll('.handle__left .handle__left-item:not(.handle-zoom), .handle__filter-block, .handle__middle, .handle__right')
+]
+
+function setZoom(xPer, yPer) {
+      zoomBlock.style.transformOrigin = `${xPer}% ${yPer}%`;
+}
+
+const zoomContainer = document.querySelector('.handle__container');
+
+
+function setZoomEvent(e) {
+    // Get the target
+    const target = zoomContainer;
+
+    console.log(e);
+
+    let width = target.offsetWidth;
+    let height = target.offsetHeight;
+
+    // Get the bounding rectangle of target
+    const rect = target.getBoundingClientRect();
+
+    // Mouse position
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    let xPercente = (x / width * 100).toFixed(2);
+    let yPercente = (y / height * 100).toFixed(2);
+
+    setZoom(xPercente, yPercente);
+}
+
+zoomButton.addEventListener('click', function() {
+    zoomLever = !zoomLever;
+    if (zoomLever) {
+        zoomBlock.classList.add('handle__zoom--active');
+        zoomContainer.classList.add('handle__container--zoom-cursor');
+        zoomButton.classList.add('handle-zoom--active');
+        zoomContainer.addEventListener('mousemove', setZoomEvent, false);
+    } else {
+        zoomBlock.classList.remove('handle__zoom--active');
+        zoomContainer.classList.remove('handle__container--zoom-cursor');
+        zoomButton.classList.remove('handle-zoom--active');
+        zoomContainer.removeEventListener('mousemove', setZoomEvent);
+    }
+    toggleHideElements(zoomElementsToHide);
+})
 });
