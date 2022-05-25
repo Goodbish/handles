@@ -90,19 +90,111 @@
                         <span class="handle__icon-text">Ручки</span>
 
                         <div class="handle__style handle__style--right">
-                            <div class="filter">
-    <div class="filter__search-container">
-        <div class="filter__search-header">
-            <span class="filter__search-title">Поиск по артикулу</span>
+                            <div class="search">
+    <div class="search__search-container">
+        <div class="search__search-header">
+            <span class="search__search-title">Поиск по артикулу</span>
 
-            <div class="filter__close-block handle__style-close">
-                <img src="./assets/icons/close-filter.svg" alt="close filter" class="filter__close">
+            <div class="search__close-block handle__style-close">
+                <img src="./assets/img/icons/close-filter.svg" alt="close search" class="search__close">
             </div>
         </div>
 
-        <div class="filter__search-block">
-            <input type="text" class="filter__search" placeholder="Введите артикул товара">
+        <div class="search__search-block">
+            <input type="text" class="search__search" placeholder="Введите артикул товара">
         </div>
+    </div>
+
+    <div class="search__message">
+        <span class="search__message-text">К сожалению, артикул не представлен в сервисе, но вы можете увидеть данную модель ручки в другом межцетровом расстоянии.</span>
+
+        <div class="search__message-block">
+            <button class="search__message-button search__message-close">Не показывать</button>
+
+            <button class="search__message-button search__message-show">
+                <span>Показать</span>
+
+                <svg 
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="18px" height="13px">
+                <path fill-rule="evenodd"  fill="rgb(255, 255, 255)"
+                d="M17.790,6.997 L12.305,12.482 L11.598,11.775 L16.376,6.997 L0.1,6.997 L0.1,5.997 L16.376,5.997 L11.598,1.219 L12.305,0.512 L17.790,5.997 L17.999,5.997 L17.999,6.997 L17.790,6.997 Z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="search__history">
+        <div class="search__history-header">
+            <span class="search__history-title">История поиска</span>
+
+            <button class="search__history-clear">очистить</button>
+        </div>
+
+        <div class="search__history-list">
+            <div class="search__history-item">
+                <div class="search__history-text">
+                    <span>WPO.752.000.00N4</span>
+                </div>
+                <div class="search__history-close">
+                    <svg 
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="13px" height="13px">
+                    <path fill-rule="evenodd"  fill="rgb(173, 174, 177)"
+                    d="M12.180,0.877 L6.832,6.225 L12.23,11.416 L11.303,12.137 L6.112,6.945 L0.918,12.139 L0.198,11.418 L5.391,6.225 L0.41,0.875 L0.761,0.154 L6.112,5.505 L11.460,0.156 L12.180,0.877 Z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="search__history-item">
+                <div class="search__history-text">
+                    <span>WPO.752.000.00N4</span>
+                </div>
+                <div class="search__history-close">
+                    <svg 
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="13px" height="13px">
+                    <path fill-rule="evenodd"  fill="rgb(173, 174, 177)"
+                    d="M12.180,0.877 L6.832,6.225 L12.23,11.416 L11.303,12.137 L6.112,6.945 L0.918,12.139 L0.198,11.418 L5.391,6.225 L0.41,0.875 L0.761,0.154 L6.112,5.505 L11.460,0.156 L12.180,0.877 Z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="search__filter">
+        <div class="search__filter-center">
+            <div class="search__filter-icon">
+                <svg 
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="24px" height="24px">
+                <path fill-rule="evenodd"  fill="rgb(31, 190, 202)"
+                d="M10.639,23.33 C10.636,23.33 10.634,23.33 10.631,23.33 L9.507,23.33 C9.49,23.33 8.678,22.663 8.678,22.205 L8.678,12.852 L0.843,1.383 C0.669,1.130 0.651,0.801 0.794,0.529 C0.937,0.258 1.219,0.88 1.527,0.88 L22.236,0.88 C22.543,0.88 22.825,0.258 22.968,0.529 C23.112,0.801 23.93,1.130 22.920,1.383 L15.84,12.852 L15.84,18.146 C15.84,18.349 15.9,18.545 14.874,18.697 L11.257,22.756 C11.97,22.936 10.871,23.33 10.639,23.33 ZM3.96,1.744 L10.191,12.129 C10.285,12.266 10.335,12.429 10.335,12.596 L10.335,21.301 L13.428,17.831 L13.428,12.596 C13.428,12.429 13.478,12.266 13.572,12.129 L20.667,1.744 L3.96,1.744 Z"/>
+                </svg>
+            </div>
+            <span class="search__filter-title">Фильтр</span>
+        </div>
+
+        <div class="search__filter-open">
+            <svg 
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="15px" height="16px">
+            <path fill-rule="evenodd"  fill="rgb(31, 190, 202)"
+            d="M13.882,8.531 L7.167,15.246 C6.797,15.616 6.197,15.616 5.827,15.246 C5.457,14.876 5.457,14.277 5.827,13.907 L11.872,7.862 L5.827,1.816 C5.457,1.446 5.457,0.847 5.827,0.477 C6.12,0.292 6.254,0.199 6.497,0.199 C6.739,0.199 6.982,0.292 7.167,0.477 L13.882,7.192 C14.59,7.369 14.159,7.610 14.159,7.862 C14.159,8.113 14.59,8.354 13.882,8.531 ZM6.807,7.862 C6.807,8.113 6.707,8.354 6.530,8.531 L2.154,12.907 C1.784,13.277 1.184,13.277 0.814,12.907 C0.445,12.537 0.445,11.937 0.814,11.567 L4.520,7.862 L0.814,4.156 C0.444,3.786 0.444,3.186 0.814,2.816 C0.999,2.631 1.242,2.539 1.484,2.539 C1.727,2.539 1.969,2.631 2.154,2.816 L6.530,7.192 C6.707,7.369 6.807,7.610 6.807,7.862 Z"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="search__result">
+        <span class="search__result-text">Всего найдено 1500 моделей ручек</span>
+    </div>
+
+    <div class="search__list">
+        
     </div>
 
     <div class="handle__style-content">
@@ -302,7 +394,15 @@
 
                 </div>
 
-                <div class="handle__next">
+                <div class="handle__change handle__next">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="11px"
+                        height="19px">
+                        <path fill-rule="evenodd" fill="rgb(2, 10, 10)"
+                            d="M1.425,0.875 C1.710,0.875 1.995,0.983 2.212,1.201 L10.99,9.88 C10.308,9.297 10.425,9.580 10.425,9.875 C10.425,10.170 10.308,10.453 10.99,10.662 L2.212,18.549 C1.778,18.983 1.73,18.983 0.639,18.549 C0.204,18.114 0.204,17.410 0.639,16.975 L7.739,9.875 L0.638,2.774 C0.204,2.340 0.204,1.635 0.638,1.201 C0.856,0.983 1.140,0.875 1.425,0.875 Z" />
+                    </svg>
+                </div>
+
+                <div class="handle__change handle__prev">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="11px"
                         height="19px">
                         <path fill-rule="evenodd" fill="rgb(2, 10, 10)"

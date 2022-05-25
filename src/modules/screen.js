@@ -80,6 +80,7 @@ function firstScreen() {
         if (screenCounter <= 2) {
             previewLoader.classList.add('preview__loading-block--show');
         } else {
+            toggleImages();
             toggleLoader();
         }
         await setNewImage();
@@ -88,6 +89,7 @@ function firstScreen() {
             previewLoader.classList.remove('preview__loading-block--show');
         } else {
             toggleLoader();
+            toggleImages();
         }
     }
     
@@ -98,7 +100,7 @@ function toggleFirstScreen() {
     document.querySelector('#preview').classList.toggle('preview--active');
     document.querySelector('.handle__background').classList.toggle('handle__background--blur');
     // document.querySelector('.handle__container').classList.toggle('handle__container--lock');
-    document.querySelectorAll('.handle__left, .handle__right, .handle__middle, .handle__next').forEach(element => {
+    document.querySelectorAll('.handle__left, .handle__right, .handle__middle, .handle__change').forEach(element => {
         element.classList.toggle('handle--events-lock')
     })
 }

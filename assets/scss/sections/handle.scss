@@ -93,6 +93,11 @@
                     left: 50%;
                     transform: translate(-50%);
                     pointer-events: none;
+                    transition: all 2s ease;
+
+                    &--hide {
+                        opacity: 0;
+                    }
                 }
             }
 
@@ -126,7 +131,8 @@
             filter: blur(7px);
 
             &::before {
-                background: rgba($color: #000000, $alpha: 0.6);;
+                background: rgba($color: #000000, $alpha: 0.6);
+                z-index: 1;
             }
         }
     }
@@ -362,10 +368,9 @@
         }
     }
 
-    &__next {
+    &__change {
         position: absolute;
         top: 50%;
-        right: 0;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -376,6 +381,18 @@
         background-color: white;
         transition: all 0.3s ease;
         transform: translateY(-50%);
+    }
+
+    &__next {
+        right: 0;
+    }
+
+    &__prev {
+        left: 0;
+
+        svg {
+            transform: rotate(180deg);
+        }
     }
 
     &__icon {

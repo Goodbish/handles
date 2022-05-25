@@ -637,7 +637,12 @@ body {
         -webkit-transform: translate(-50%);
             -ms-transform: translate(-50%);
                 transform: translate(-50%);
-        pointer-events: none; }
+        pointer-events: none;
+        -webkit-transition: all 2s ease;
+        -o-transition: all 2s ease;
+        transition: all 2s ease; }
+        .handle__background-image:not(.handle__background-image--main) img--hide {
+          opacity: 0; }
       .handle__background-image--main {
         z-index: 0; }
       .handle__background-image--2 {
@@ -661,7 +666,8 @@ body {
       -webkit-filter: blur(7px);
               filter: blur(7px); }
       .handle__background--blur::before {
-        background: rgba(0, 0, 0, 0.6); }
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1; }
   .handle__middle {
     left: 50%;
     -webkit-transform: translateX(-50%);
@@ -886,10 +892,9 @@ body {
       display: -ms-flexbox;
       display: flex;
       position: relative; }
-  .handle__next {
+  .handle__change {
     position: absolute;
     top: 50%;
-    right: 0;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -910,6 +915,14 @@ body {
     -webkit-transform: translateY(-50%);
         -ms-transform: translateY(-50%);
             transform: translateY(-50%); }
+  .handle__next {
+    right: 0; }
+  .handle__prev {
+    left: 0; }
+    .handle__prev svg {
+      -webkit-transform: rotate(180deg);
+          -ms-transform: rotate(180deg);
+              transform: rotate(180deg); }
   .handle__icon {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1024,7 +1037,7 @@ body {
     transition: all 0.3s ease; }
   .handle-zoom--active svg path {
     d: path("M 28.495 27.485 L 26.488 29.492 C 26.128 29.852 25.658 30.32 25.192 30.32 C 24.744 30.32 24.3 29.865 23.963 29.529 L 15.245 20.81 C 13.892 21.419 12.398 21.765 10.821 21.765 C 4.854 21.765 0 16.911 0 10.943 C 0 4.976 4.854 0.121 10.821 0.121 C 16.788 0.121 21.643 4.976 21.643 10.943 C 21.643 12.981 21.66 14.882 20.83 16.512 L 28.532 24.96 C 29.217 25.646 29.201 26.779 28.495 27.485 Z M 10.821 2.41 C 5.912 2.41 1.919 6.35 1.919 10.943 C 1.919 15.852 5.912 19.846 10.821 19.846 C 15.73 19.846 19.724 15.852 19.724 10.943 C 19.724 6.35 15.73 2.41 10.821 2.41 Z M 18.936 18.79 C 18.356 18.738 17.702 19.328 16.98 19.831 L 18.321 21.172 L 20.175 19.318 L 18.936 18.79 Z M 21.533 20.676 L 19.679 22.529 L 25.207 28.58 L 27.61 26.204 L 21.533 20.676 Z M 14.93 11.91 L 11.765 11.91 L 9.846 11.91 L 6.682 11.91 C 6.152 11.91 5.722 11.48 5.722 10.95 C 5.722 10.42 6.152 9.99 6.682 9.99 L 9.846 9.99 L 11.765 9.99 L 14.93 9.99 C 15.46 9.99 15.889 10.42 15.889 10.95 C 15.889 11.48 15.46 11.91 14.93 11.91 Z"); }
-  .handle .filter {
+  .handle .search {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1032,10 +1045,164 @@ body {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    width: 400px; }
-    .handle .filter__search-container {
+    width: 400px;
+    font-family: "Roboto"; }
+    .handle .search__search {
+      width: 100%;
+      padding: 14px 40px 14px 14px;
+      border: 1px solid #0057b8;
+      font-size: 14px;
+      color: #4b4b4d; }
+      .handle .search__search:focus, .handle .search__search:active {
+        outline: none; }
+      .handle .search__search-container {
+        background: white;
+        padding: 14px 18px 8px; }
+      .handle .search__search-header {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between; }
+      .handle .search__search-block {
+        position: relative;
+        width: 100%;
+        margin-top: 14px; }
+        .handle .search__search-block::before {
+          content: url("./../img/icons/magn-glass.png");
+          position: absolute;
+          top: 10px;
+          right: 12px; }
+    .handle .search__message {
+      position: relative;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.9); }
+      .handle .search__message-text {
+        font-size: 12px;
+        line-height: 16px; }
+      .handle .search__message-block {
+        margin-top: 16px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: space-evenly;
+            -ms-flex-pack: space-evenly;
+                justify-content: space-evenly; }
+      .handle .search__message-button {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        padding: 6px 16px;
+        background: none;
+        outline: none;
+        border: none;
+        text-align: center;
+        min-width: 140px;
+        cursor: pointer; }
+      .handle .search__message-close {
+        border: 1px solid #adaeb1;
+        color: #adaeb1; }
+      .handle .search__message-show {
+        background: #005bbf;
+        color: white; }
+    .handle .search__history {
       background: white;
-      padding: 14px 18px 8px; }
+      padding: 14px 18px; }
+      .handle .search__history-header {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        color: #d1d1d2; }
+      .handle .search__history-title {
+        font-size: 14px; }
+      .handle .search__history-clear {
+        font-size: 12px;
+        border: none;
+        outline: none;
+        background: none;
+        padding: 0;
+        color: #d1d1d2;
+        cursor: pointer;
+        text-decoration: underline; }
+      .handle .search__history-list {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        row-gap: 14px;
+        margin-top: 14px; }
+      .handle .search__history-item {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center; }
+        .handle .search__history-item + .handle .search__history-item {
+          margin-top: 14px; }
+      .handle .search__history-text {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        position: relative;
+        font-size: 14px; }
+        .handle .search__history-text::before {
+          content: url("./../img/icons/history.png");
+          margin-right: 9px; }
+      .handle .search__history-close {
+        cursor: pointer; }
+    .handle .search__filter {
+      position: relative;
+      border-top: 1px solid #c7eff2;
+      border-bottom: 1px solid #c7eff2;
+      background: rgba(237, 250, 251, 0.95);
+      padding: 14px 18px; }
+      .handle .search__filter-center {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center; }
+      .handle .search__filter-icon {
+        margin-right: 10px; }
+      .handle .search__filter-title {
+        font-size: 16px;
+        color: #1fbeca; }
+      .handle .search__filter-open {
+        margin-left: auto;
+        width: 20px;
+        cursor: pointer; }
+    .handle .search__result {
+      background: white;
+      padding: 14px 18px; }
+      .handle .search__result-text {
+        font-size: 16px; }
   .handle--events-lock {
     pointer-events: none; }
   .handle--hide {

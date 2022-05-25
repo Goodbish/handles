@@ -16,8 +16,6 @@ function setZoomEvent(e) {
     // Get the target
     const target = zoomContainer;
 
-    console.log(e);
-
     let width = target.offsetWidth;
     let height = target.offsetHeight;
 

@@ -11,3 +11,8 @@ function toggleLoader() {
     document.querySelector('.handle__background').classList.toggle('handle__background--blur');
     document.querySelector('.handle__container').classList.toggle('handle__container--lock');
 }
+
+function toggleImages() {
+    facadeImage.classList.toggle('.handle__background-image--hide');
+    handlesImage.classList.toggle('.handle__background-image--hide');
+}
