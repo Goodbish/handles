@@ -5,22 +5,20 @@ changeAngleButtons.forEach(button => {
         let activeElements = document.querySelectorAll('[data-active="true"]');
         button.classList.contains('handle__next') ? globalSlideIndex++ : globalSlideIndex--;
         console.log(globalSlideIndex);
-        if (globalSlideIndex === 3) {
-            document.querySelector('.handle__next').classList.add('handle__change--hide')
-        }  else {
-            document.querySelector('.handle__next').classList.remove('handle__change--hide')
-        }
-
-        if (globalSlideIndex === 1) {
-            document.querySelector('.handle__prev').classList.add('handle__change--hide')
-        } else {
-            document.querySelector('.handle__prev').classList.remove('handle__change--hide')
-        }
+        checkGlobalIndex();
 
         // set local angle index
         localStorage.setItem('angle', globalSlideIndex);
+
+        // set loading text
+        if (button.classList.contains('handle__next')) {
+            loaderType.innerText = `следующий интерьер`;
+            loaderItem.innerText = ``;
+        } else {
+            loaderType.innerText = `предыдущий интерьер`;
+            loaderItem.innerText = ``;
+        }
         
-    
         // get all active images to change
     
         activeElements.forEach(element => {

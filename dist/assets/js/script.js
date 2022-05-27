@@ -22,6 +22,20 @@ function toggleImages() {
     document.querySelector('.handle__background-image--2').classList.toggle('handle__background-image--hide');
     document.querySelector('.handle__background-image--3').classList.toggle('handle__background-image--hide');
 }
+
+function checkGlobalIndex() {
+    if (globalSlideIndex === 3) {
+        document.querySelector('.handle__next').classList.add('handle__change--hide')
+    }  else {
+        document.querySelector('.handle__next').classList.remove('handle__change--hide')
+    }
+
+    if (globalSlideIndex === 1) {
+        document.querySelector('.handle__prev').classList.add('handle__change--hide')
+    } else {
+        document.querySelector('.handle__prev').classList.remove('handle__change--hide')
+    }
+}
     function firstScreen() {
     const previewLoader = document.querySelector('#preview .preview__loading-block');
     const previewButton = document.querySelector('#preview .preview__button');
@@ -45,6 +59,14 @@ function toggleImages() {
     const localStyleText = localStorage.getItem('styleText');
     const localFacadeText = localStorage.getItem('facadeText');
     const localHandleText = localStorage.getItem('handlesText');
+
+    const localSlideIndex = localStorage.getItem('angle');
+
+    if (localSlideIndex != null) {
+        globalSlideIndex = Number(localSlideIndex);
+    }
+
+    checkGlobalIndex();
     
     function setNewImage() {
         return new Promise((resolve) => {
@@ -157,22 +179,20 @@ changeAngleButtons.forEach(button => {
         let activeElements = document.querySelectorAll('[data-active="true"]');
         button.classList.contains('handle__next') ? globalSlideIndex++ : globalSlideIndex--;
         console.log(globalSlideIndex);
-        if (globalSlideIndex === 3) {
-            document.querySelector('.handle__next').classList.add('handle__change--hide')
-        }  else {
-            document.querySelector('.handle__next').classList.remove('handle__change--hide')
-        }
-
-        if (globalSlideIndex === 1) {
-            document.querySelector('.handle__prev').classList.add('handle__change--hide')
-        } else {
-            document.querySelector('.handle__prev').classList.remove('handle__change--hide')
-        }
+        checkGlobalIndex();
 
         // set local angle index
         localStorage.setItem('angle', globalSlideIndex);
+
+        // set loading text
+        if (button.classList.contains('handle__next')) {
+            loaderType.innerText = `следующий интерьер`;
+            loaderItem.innerText = ``;
+        } else {
+            loaderType.innerText = `предыдущий интерьер`;
+            loaderItem.innerText = ``;
+        }
         
-    
         // get all active images to change
     
         activeElements.forEach(element => {
@@ -319,26 +339,28 @@ styleBlocks.forEach(element => {
                     elementToChange = mainImage;
                     localStorage.setItem('style', newSrc);
                     localStorage.setItem('styleText', newText);
-                    loaderType.innerHTML = `интерьер в стиле`;
+                    // loaderType.innerHTML = `интерьер в стиле`;
                     break;
                 case 'facade' : 
                     elementToChange = facadeImage;
                     localStorage.setItem('facade', newSrc);
                     localStorage.setItem('facadeText', newText);
-                    loaderType.innerHTML = `фасад в цвете`;
+                    // loaderType.innerHTML = `фасад в цвете`;
                     break;
                 case 'handles' :
                     elementToChange = handlesImage;
                     localStorage.setItem('handles', newSrc);
                     localStorage.setItem('handlesText', newText);
-                    loaderType.innerHTML = `ручки`;
+                    // loaderType.innerHTML = `ручки`;
                     break;
                 default: 
                     console.log('no type of element');
                     break;
             }
 
-            loaderItem.innerText = `${newText}`;
+            loaderType.innerText = `интерьер`;
+            loaderItem.innerText = ``;
+            // loaderItem.innerText = `${newText}`;
 
             function setNewImage() {
                 return new Promise((resolve) => {

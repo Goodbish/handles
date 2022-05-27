@@ -53,26 +53,28 @@ styleBlocks.forEach(element => {
                     elementToChange = mainImage;
                     localStorage.setItem('style', newSrc);
                     localStorage.setItem('styleText', newText);
-                    loaderType.innerHTML = `интерьер в стиле`;
+                    // loaderType.innerHTML = `интерьер в стиле`;
                     break;
                 case 'facade' : 
                     elementToChange = facadeImage;
                     localStorage.setItem('facade', newSrc);
                     localStorage.setItem('facadeText', newText);
-                    loaderType.innerHTML = `фасад в цвете`;
+                    // loaderType.innerHTML = `фасад в цвете`;
                     break;
                 case 'handles' :
                     elementToChange = handlesImage;
                     localStorage.setItem('handles', newSrc);
                     localStorage.setItem('handlesText', newText);
-                    loaderType.innerHTML = `ручки`;
+                    // loaderType.innerHTML = `ручки`;
                     break;
                 default: 
                     console.log('no type of element');
                     break;
             }
 
-            loaderItem.innerText = `${newText}`;
+            loaderType.innerText = `интерьер`;
+            loaderItem.innerText = ``;
+            // loaderItem.innerText = `${newText}`;
 
             function setNewImage() {
                 return new Promise((resolve) => {
