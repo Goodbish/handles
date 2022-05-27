@@ -89,6 +89,7 @@ styleBlocks.forEach(element => {
                 toggleLoader();
                 await setNewImage();
                 toggleLoader();
+                setLocalInfo();
             }
             
             waitNewImage();

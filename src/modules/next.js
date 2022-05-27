@@ -99,6 +99,7 @@ changeAngleButtons.forEach(button => {
             setLocalSet();
             toggleLoader();
             toggleImages();
+            setLocalInfo();
         }
         
         waitNewImage();

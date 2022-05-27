@@ -18,15 +18,13 @@ function firstScreen() {
     const localFacadeImage = localStorage.getItem('facade');
     const localHandleImage = localStorage.getItem('handle');
 
-    const localStyleText = localStorage.getItem('styleText');
-    const localFacadeText = localStorage.getItem('facadeText');
-    const localHandleText = localStorage.getItem('handlesText');
-
     const localSlideIndex = localStorage.getItem('angle');
 
     if (localSlideIndex != null) {
         globalSlideIndex = Number(localSlideIndex);
     }
+
+    
 
     checkGlobalIndex();
     
@@ -99,6 +97,7 @@ function firstScreen() {
             toggleLoader();
             toggleImages();
         }
+        setLocalInfo();
     }
     
     waitNewImage();

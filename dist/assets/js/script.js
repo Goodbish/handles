@@ -36,6 +36,30 @@ function checkGlobalIndex() {
         document.querySelector('.handle__prev').classList.remove('handle__change--hide')
     }
 }
+
+
+
+const infoStyle = document.querySelector('.handle__info-style');
+const infoFacade = document.querySelector('.handle__info-facade');
+const infoHandle = document.querySelector('.handle__info-handle');
+
+function setLocalInfo() {
+    const localStyleText = localStorage.getItem('styleText');
+    const localFacadeText = localStorage.getItem('facadeText');
+    const localHandleText = localStorage.getItem('handlesText');
+
+    if (localStyleText !== null) {
+        infoStyle.innerText = localStyleText;
+    }
+
+    if (localFacadeText !== null) {
+        infoFacade.innerText = localFacadeText;
+    }
+
+    if (localHandleText !== null) {
+        infoHandle.innerText = localHandleText;
+    }
+}
     function firstScreen() {
     const previewLoader = document.querySelector('#preview .preview__loading-block');
     const previewButton = document.querySelector('#preview .preview__button');
@@ -56,15 +80,13 @@ function checkGlobalIndex() {
     const localFacadeImage = localStorage.getItem('facade');
     const localHandleImage = localStorage.getItem('handle');
 
-    const localStyleText = localStorage.getItem('styleText');
-    const localFacadeText = localStorage.getItem('facadeText');
-    const localHandleText = localStorage.getItem('handlesText');
-
     const localSlideIndex = localStorage.getItem('angle');
 
     if (localSlideIndex != null) {
         globalSlideIndex = Number(localSlideIndex);
     }
+
+    
 
     checkGlobalIndex();
     
@@ -137,6 +159,7 @@ function checkGlobalIndex() {
             toggleLoader();
             toggleImages();
         }
+        setLocalInfo();
     }
     
     waitNewImage();
@@ -273,6 +296,7 @@ changeAngleButtons.forEach(button => {
             setLocalSet();
             toggleLoader();
             toggleImages();
+            setLocalInfo();
         }
         
         waitNewImage();
@@ -375,6 +399,7 @@ styleBlocks.forEach(element => {
                 toggleLoader();
                 await setNewImage();
                 toggleLoader();
+                setLocalInfo();
             }
             
             waitNewImage();

@@ -34,3 +34,27 @@ function checkGlobalIndex() {
         document.querySelector('.handle__prev').classList.remove('handle__change--hide')
     }
 }
+
+
+
+const infoStyle = document.querySelector('.handle__info-style');
+const infoFacade = document.querySelector('.handle__info-facade');
+const infoHandle = document.querySelector('.handle__info-handle');
+
+function setLocalInfo() {
+    const localStyleText = localStorage.getItem('styleText');
+    const localFacadeText = localStorage.getItem('facadeText');
+    const localHandleText = localStorage.getItem('handlesText');
+
+    if (localStyleText !== null) {
+        infoStyle.innerText = localStyleText;
+    }
+
+    if (localFacadeText !== null) {
+        infoFacade.innerText = localFacadeText;
+    }
+
+    if (localHandleText !== null) {
+        infoHandle.innerText = localHandleText;
+    }
+}
