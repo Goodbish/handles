@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 const mainImage = document.querySelector('.handle__background-image--main img');
 const facadeImage = document.querySelector('.handle__background-image--2 img');
 const handlesImage = document.querySelector('.handle__background-image--3 img');
+const loaderType = document.querySelector('.preview__load-type');
+const loaderItem = document.querySelector('.preview__load-text');
 let newMainImage = '';
 let newFacadeImage = '';
 let newHandlesImage = '';
@@ -154,13 +156,19 @@ changeAngleButtons.forEach(button => {
     button.addEventListener('click', function() {
         let activeElements = document.querySelectorAll('[data-active="true"]');
         button.classList.contains('handle__next') ? globalSlideIndex++ : globalSlideIndex--;
-        if (globalSlideIndex > 3) {
-            globalSlideIndex = 1;
+        console.log(globalSlideIndex);
+        if (globalSlideIndex === 3) {
+            document.querySelector('.handle__next').classList.add('handle__change--hide')
+        }  else {
+            document.querySelector('.handle__next').classList.remove('handle__change--hide')
         }
 
-        if (globalSlideIndex < 1) {
-            globalSlideIndex = 3;
+        if (globalSlideIndex === 1) {
+            document.querySelector('.handle__prev').classList.add('handle__change--hide')
+        } else {
+            document.querySelector('.handle__prev').classList.remove('handle__change--hide')
         }
+
         // set local angle index
         localStorage.setItem('angle', globalSlideIndex);
         
@@ -282,6 +290,7 @@ styleBlocks.forEach(element => {
         element.addEventListener('click', function() {
             resetStyleButtons();
             element.classList.add('handle__option--active');
+            element.setAttribute('data-active', 'true');
             // here function to set bg
             let angle = localStorage.getItem('angle');
             newSrc = '';
@@ -301,6 +310,8 @@ styleBlocks.forEach(element => {
             }
             
             let newText = element.querySelector('span').innerHTML;
+            console.log(newText);
+            
             let styleType = element.getAttribute('data-type');
             let elementToChange;
             switch (styleType) {
@@ -308,21 +319,26 @@ styleBlocks.forEach(element => {
                     elementToChange = mainImage;
                     localStorage.setItem('style', newSrc);
                     localStorage.setItem('styleText', newText);
+                    loaderType.innerHTML = `интерьер в стиле`;
                     break;
                 case 'facade' : 
                     elementToChange = facadeImage;
                     localStorage.setItem('facade', newSrc);
                     localStorage.setItem('facadeText', newText);
+                    loaderType.innerHTML = `фасад в цвете`;
                     break;
                 case 'handles' :
                     elementToChange = handlesImage;
                     localStorage.setItem('handles', newSrc);
                     localStorage.setItem('handlesText', newText);
+                    loaderType.innerHTML = `ручки`;
                     break;
                 default: 
                     console.log('no type of element');
                     break;
             }
+
+            loaderItem.innerText = `${newText}`;
 
             function setNewImage() {
                 return new Promise((resolve) => {
@@ -345,6 +361,7 @@ styleBlocks.forEach(element => {
 
     function resetStyleButtons() {
         changeStyleButtons.forEach(element => {
+            element.setAttribute('data-active', 'false');
             element.classList.remove('handle__option--active');
         })
     }
@@ -357,7 +374,6 @@ styleBlocks.forEach(element => {
                 } else {
                     element.classList.remove('handle__icon--clicked');
                 }
-                
                 element.querySelector('.handle__style').classList.remove('handle__style--active');
             }
             
@@ -425,17 +441,17 @@ zoomButton.addEventListener('click', function() {
     }
     toggleHideElements(zoomElementsToHide);
 })
-    const searchBlock = document.querySelector('.search');
+    // const searchBlock = document.querySelector('.search');
 
-function setSearchHeight() {
-    let containerHeight = containerBlock.offsetHeight;
+// function setSearchHeight() {
+//     let containerHeight = containerBlock.offsetHeight;
 
-    searchBlock.style.maxHeight = `${containerHeight - 10}px`
-}
+//     searchBlock.style.maxHeight = `${containerHeight - 10}px`
+// }
 
-window.addEventListener('load', () => {
-    setSearchHeight();
-});
+// window.addEventListener('load', () => {
+//     setSearchHeight();
+// });
 
 
     const controlButtons = document.querySelectorAll('.search__control-3d');

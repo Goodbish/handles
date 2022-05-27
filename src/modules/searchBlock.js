@@ -1,12 +1,12 @@
-const searchBlock = document.querySelector('.search');
+// const searchBlock = document.querySelector('.search');
 
-function setSearchHeight() {
-    let containerHeight = containerBlock.offsetHeight;
+// function setSearchHeight() {
+//     let containerHeight = containerBlock.offsetHeight;
 
-    searchBlock.style.maxHeight = `${containerHeight - 10}px`
-}
+//     searchBlock.style.maxHeight = `${containerHeight - 10}px`
+// }
 
-window.addEventListener('load', () => {
-    setSearchHeight();
-});
+// window.addEventListener('load', () => {
+//     setSearchHeight();
+// });
 

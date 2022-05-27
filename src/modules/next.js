@@ -4,13 +4,19 @@ changeAngleButtons.forEach(button => {
     button.addEventListener('click', function() {
         let activeElements = document.querySelectorAll('[data-active="true"]');
         button.classList.contains('handle__next') ? globalSlideIndex++ : globalSlideIndex--;
-        if (globalSlideIndex > 3) {
-            globalSlideIndex = 1;
+        console.log(globalSlideIndex);
+        if (globalSlideIndex === 3) {
+            document.querySelector('.handle__next').classList.add('handle__change--hide')
+        }  else {
+            document.querySelector('.handle__next').classList.remove('handle__change--hide')
         }
 
-        if (globalSlideIndex < 1) {
-            globalSlideIndex = 3;
+        if (globalSlideIndex === 1) {
+            document.querySelector('.handle__prev').classList.add('handle__change--hide')
+        } else {
+            document.querySelector('.handle__prev').classList.remove('handle__change--hide')
         }
+
         // set local angle index
         localStorage.setItem('angle', globalSlideIndex);
         

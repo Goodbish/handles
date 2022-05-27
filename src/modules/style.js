@@ -24,6 +24,7 @@ styleBlocks.forEach(element => {
         element.addEventListener('click', function() {
             resetStyleButtons();
             element.classList.add('handle__option--active');
+            element.setAttribute('data-active', 'true');
             // here function to set bg
             let angle = localStorage.getItem('angle');
             newSrc = '';
@@ -43,6 +44,8 @@ styleBlocks.forEach(element => {
             }
             
             let newText = element.querySelector('span').innerHTML;
+            console.log(newText);
+            
             let styleType = element.getAttribute('data-type');
             let elementToChange;
             switch (styleType) {
@@ -50,21 +53,26 @@ styleBlocks.forEach(element => {
                     elementToChange = mainImage;
                     localStorage.setItem('style', newSrc);
                     localStorage.setItem('styleText', newText);
+                    loaderType.innerHTML = `интерьер в стиле`;
                     break;
                 case 'facade' : 
                     elementToChange = facadeImage;
                     localStorage.setItem('facade', newSrc);
                     localStorage.setItem('facadeText', newText);
+                    loaderType.innerHTML = `фасад в цвете`;
                     break;
                 case 'handles' :
                     elementToChange = handlesImage;
                     localStorage.setItem('handles', newSrc);
                     localStorage.setItem('handlesText', newText);
+                    loaderType.innerHTML = `ручки`;
                     break;
                 default: 
                     console.log('no type of element');
                     break;
             }
+
+            loaderItem.innerText = `${newText}`;
 
             function setNewImage() {
                 return new Promise((resolve) => {
@@ -87,6 +95,7 @@ styleBlocks.forEach(element => {
 
     function resetStyleButtons() {
         changeStyleButtons.forEach(element => {
+            element.setAttribute('data-active', 'false');
             element.classList.remove('handle__option--active');
         })
     }
@@ -99,7 +108,6 @@ styleBlocks.forEach(element => {
                 } else {
                     element.classList.remove('handle__icon--clicked');
                 }
-                
                 element.querySelector('.handle__style').classList.remove('handle__style--active');
             }
             
