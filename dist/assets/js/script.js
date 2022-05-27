@@ -1,6 +1,8 @@
 
 document.addEventListener("DOMContentLoaded", function(event) { 
-    const mainImage = document.querySelector('.handle__background-image--main img');
+    const containerBlock = document.querySelector('.handle__container');
+
+const mainImage = document.querySelector('.handle__background-image--main img');
 const facadeImage = document.querySelector('.handle__background-image--2 img');
 const handlesImage = document.querySelector('.handle__background-image--3 img');
 let newMainImage = '';
@@ -11,12 +13,12 @@ let globalSlideIndex = 1;
 function toggleLoader() {
     document.querySelector('.loader.preview').classList.toggle('preview--active');
     document.querySelector('.handle__background').classList.toggle('handle__background--blur');
-    document.querySelector('.handle__container').classList.toggle('handle__container--lock');
+    containerBlock.classList.toggle('handle__container--lock');
 }
 
 function toggleImages() {
-    facadeImage.classList.toggle('.handle__background-image--hide');
-    handlesImage.classList.toggle('.handle__background-image--hide');
+    document.querySelector('.handle__background-image--2').classList.toggle('handle__background-image--hide');
+    document.querySelector('.handle__background-image--3').classList.toggle('handle__background-image--hide');
 }
     function firstScreen() {
     const previewLoader = document.querySelector('#preview .preview__loading-block');
@@ -237,10 +239,12 @@ changeAngleButtons.forEach(button => {
         }
         
         async function waitNewImage() {
+            toggleImages();
             toggleLoader();
             await setNewImage();
             setLocalSet();
             toggleLoader();
+            toggleImages();
         }
         
         waitNewImage();
@@ -420,5 +424,50 @@ zoomButton.addEventListener('click', function() {
         zoomContainer.removeEventListener('mousemove', setZoomEvent);
     }
     toggleHideElements(zoomElementsToHide);
+})
+    const searchBlock = document.querySelector('.search');
+
+function setSearchHeight() {
+    let containerHeight = containerBlock.offsetHeight;
+
+    searchBlock.style.maxHeight = `${containerHeight - 10}px`
+}
+
+window.addEventListener('load', () => {
+    setSearchHeight();
+});
+
+
+    const controlButtons = document.querySelectorAll('.search__control-3d');
+const controlList = document.querySelector('.search__list');
+
+controlButtons.forEach(element => {
+    let blockToShow = element.querySelector('.search__3d');
+    let closeMessageBlock = element.querySelector('.search__3d-close');
+    let noButtonMessage = element.querySelector('.search__3d-button--no');
+
+    if (blockToShow !== null) {
+        let topOfBlock = 0
+        blockToShow.addEventListener('click', function(e) {
+            e.stopPropagation();
+        })
+        element.addEventListener('click', toggleMessageBlock)
+        closeMessageBlock.addEventListener('click', toggleMessageBlock);
+        noButtonMessage.addEventListener('click', toggleMessageBlock);
+
+        const scrollListener = () => {
+            topOfBlock = element.getBoundingClientRect().top + window.scrollY;
+            blockToShow.style.transform = `translateY(${topOfBlock}px) translateX(100%)`;
+        };
+
+        scrollListener();
+
+        controlList.addEventListener('scroll', scrollListener);
+
+        function toggleMessageBlock(event) {
+            event.stopPropagation();
+            blockToShow.classList.toggle('search__3d--active');
+        }
+    }
 })
 });

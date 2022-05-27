@@ -3,6 +3,10 @@
 @import './global/common';
 @import './global/variaibles';
 @import './global/keyframes';
+@import './global/mixins';
 
 
 @import './sections/handle.scss';
+
+@import './sections/search.scss';
+@import './sections/detail.scss';

@@ -10,7 +10,7 @@
         // max-width: 1920px;
         min-width: 1280px;
         min-height: 720px;
-        overflow: auto;
+        overflow: hidden;
         position: relative;
         margin: 0 auto;
 
@@ -35,6 +35,7 @@
     &__left {
         left: 0;
         display: flex;
+        z-index: 2;
 
         &-list {
             padding-top: 7px;
@@ -93,11 +94,13 @@
                     left: 50%;
                     transform: translate(-50%);
                     pointer-events: none;
-                    transition: all 2s ease;
+                    transition: opacity 0.3s ease;
+                }
+            }
 
-                    &--hide {
-                        opacity: 0;
-                    }
+            &--hide {
+                img {
+                    opacity: 0;
                 }
             }
 
@@ -254,6 +257,14 @@
             left: inherit;
             right: 0;
             transform: translateX(100%);
+            border-top: none;
+        }
+
+        &--left {
+            top: 0;
+            left: 0;
+            transform: translateX(-100%);
+            border-top: none;
         }
 
         &--active {
@@ -532,8 +543,6 @@
     }
 
     // sections
-
-    @import './filter.scss';
     
     // extra
 

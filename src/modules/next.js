@@ -89,10 +89,12 @@ changeAngleButtons.forEach(button => {
         }
         
         async function waitNewImage() {
+            toggleImages();
             toggleLoader();
             await setNewImage();
             setLocalSet();
             toggleLoader();
+            toggleImages();
         }
         
         waitNewImage();
