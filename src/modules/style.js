@@ -1,5 +1,4 @@
-const styleBlocks = document.querySelectorAll('.handle-style');
-const contentStyleBlocks = document.querySelectorAll('.handle__style');
+
 
 const closeStyleBlock = document.querySelector('.handle__style-close');
 styleBlocks.forEach(element => {
@@ -27,7 +26,7 @@ styleBlocks.forEach(element => {
             element.setAttribute('data-active', 'true');
             // here function to set bg
             let angle = localStorage.getItem('angle');
-            newSrc = '';
+            let newSrc = '';
             
             switch (angle) {
                 case '1' :
@@ -59,6 +58,8 @@ styleBlocks.forEach(element => {
                     elementToChange = facadeImage;
                     localStorage.setItem('facade', newSrc);
                     localStorage.setItem('facadeText', newText);
+                    let newColor = element.getAttribute('data-color');
+                    localStorage.setItem('facadeColor', newColor);
                     // loaderType.innerHTML = `фасад в цвете`;
                     break;
                 case 'handles' :

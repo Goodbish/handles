@@ -567,6 +567,7 @@
 
         &-item {
             display: flex;
+            align-items: center;
             column-gap: 20px;
         }
 
@@ -576,6 +577,13 @@
 
         &-text {
             font-size: 12px;
+        }
+
+        &-color {
+            width: 16px;
+            height: 16px;
+            margin: 0 10px;
+            border-radius: 50%;
         }
     }
 

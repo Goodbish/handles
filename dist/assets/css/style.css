@@ -1099,6 +1099,9 @@ body {
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
       -webkit-column-gap: 20px;
          -moz-column-gap: 20px;
               column-gap: 20px; }
@@ -1106,6 +1109,11 @@ body {
       color: #4b4b4d; }
     .handle__info-text {
       font-size: 12px; }
+    .handle__info-color {
+      width: 16px;
+      height: 16px;
+      margin: 0 10px;
+      border-radius: 50%; }
   .handle-zoom svg path {
     -webkit-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -1311,6 +1319,8 @@ body {
       outline: 1px solid #015abb; }
       .search__item:hover .search__control-item--hidden {
         opacity: 1; }
+    .search__item.handle__option--active {
+      outline: 1px solid #015abb; }
     .search__item-bottom {
       display: -webkit-box;
       display: -ms-flexbox;

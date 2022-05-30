@@ -214,6 +214,10 @@
             }
         }
 
+        &.handle__option--active {
+            outline: 1px solid #015abb;
+        }
+
         &-bottom {
             display: flex;
             justify-content: space-between;

@@ -1,7 +1,6 @@
 
 document.addEventListener("DOMContentLoaded", function(event) { 
     const containerBlock = document.querySelector('.handle__container');
-
 const mainImage = document.querySelector('.handle__background-image--main img');
 const facadeImage = document.querySelector('.handle__background-image--2 img');
 const handlesImage = document.querySelector('.handle__background-image--3 img');
@@ -11,6 +10,8 @@ let newMainImage = '';
 let newFacadeImage = '';
 let newHandlesImage = '';
 let globalSlideIndex = 1;
+const styleBlocks = document.querySelectorAll('.handle-style');
+const contentStyleBlocks = document.querySelectorAll('.handle__style');
 
 function toggleLoader() {
     document.querySelector('.loader.preview').classList.toggle('preview--active');
@@ -40,24 +41,36 @@ function checkGlobalIndex() {
 
 
 const infoStyle = document.querySelector('.handle__info-style');
+const selectedStyle = document.querySelector('#style-text');
 const infoFacade = document.querySelector('.handle__info-facade');
+const infoFacadeColor = document.querySelector('.handle__info-color');
+const selectedFacade = document.querySelector('#facadeText span');
+const selectedColor = document.querySelector('#facadeColor .handle__color');
 const infoHandle = document.querySelector('.handle__info-handle');
 
 function setLocalInfo() {
     const localStyleText = localStorage.getItem('styleText');
     const localFacadeText = localStorage.getItem('facadeText');
     const localHandleText = localStorage.getItem('handlesText');
+    const localFacadeColor = localStorage.getItem('facadeColor');
 
     if (localStyleText !== null) {
         infoStyle.innerText = localStyleText;
+        selectedStyle.innerText = localStyleText;
     }
 
     if (localFacadeText !== null) {
         infoFacade.innerText = localFacadeText;
+        selectedFacade.innerText = localFacadeText;
     }
 
     if (localHandleText !== null) {
         infoHandle.innerText = localHandleText;
+    }
+
+    if (localFacadeColor !== null) {
+        infoFacadeColor.style.background = localFacadeColor;
+        selectedColor.style.background = localFacadeColor;
     }
 }
     function firstScreen() {
@@ -92,6 +105,7 @@ function setLocalInfo() {
     }
 
     checkGlobalIndex();
+    setActiveItems();
     
     function setNewImage() {
         return new Promise((resolve) => {
@@ -163,6 +177,7 @@ function setLocalInfo() {
             toggleImages();
         }
         setLocalInfo();
+        setActiveItems();
     }
     
     waitNewImage();
@@ -174,6 +189,58 @@ function toggleFirstScreen() {
     // document.querySelector('.handle__container').classList.toggle('handle__container--lock');
     document.querySelectorAll('.handle__left, .handle__right, .handle__middle, .handle__change').forEach(element => {
         element.classList.toggle('handle--events-lock')
+    })
+}
+
+function setActiveItems() {
+    styleBlocks.forEach(element => {
+        const localStyle = localStorage.getItem('style');
+        const localFacade = localStorage.getItem('facade');
+        const localHandle = localStorage.getItem('handles');
+
+        const changeStyleButtons = element.querySelectorAll('.handle__option');
+
+        changeStyleButtons.forEach(element => {
+            let imageAngle = localStorage.getItem('angle');
+            let imageToCheck = '';
+            switch (imageAngle) {
+                case "1" : 
+                    imageToCheck = element.getAttribute('data-image');
+                    break;
+                case "2" : 
+                    imageToCheck = element.getAttribute('data-image-secondary');
+                    break;
+                case "3" : 
+                    imageToCheck = element.getAttribute('data-image-third');
+                    break;
+            }
+    
+            if (localStyle !== null && element.getAttribute('data-type') === 'style' && localStyle === imageToCheck) {
+                setActiveOption();
+            }
+    
+            if (localFacade !== null && element.getAttribute('data-type') === 'facade' && localFacade === imageToCheck) {
+                setActiveOption();
+                console.log(imageToCheck);
+            }
+    
+            if (localHandle !== null && element.getAttribute('data-type') === 'handle' && localHandle === imageToCheck) {
+                setActiveOption();
+            }
+
+            function setActiveOption() {
+                resetStyleButtons();
+                element.setAttribute('data-active', 'true');
+                element.classList.add('handle__option--active');
+            }
+        })
+
+        function resetStyleButtons() {
+            changeStyleButtons.forEach(element => {
+                element.setAttribute('data-active', 'false');
+                element.classList.remove('handle__option--active');
+            })
+        }
     })
 }
 
@@ -311,8 +378,7 @@ changeAngleButtons.forEach(button => {
         }
     })
 })
-    const styleBlocks = document.querySelectorAll('.handle-style');
-const contentStyleBlocks = document.querySelectorAll('.handle__style');
+    
 
 const closeStyleBlock = document.querySelector('.handle__style-close');
 styleBlocks.forEach(element => {
@@ -340,7 +406,7 @@ styleBlocks.forEach(element => {
             element.setAttribute('data-active', 'true');
             // here function to set bg
             let angle = localStorage.getItem('angle');
-            newSrc = '';
+            let newSrc = '';
             
             switch (angle) {
                 case '1' :
@@ -372,6 +438,8 @@ styleBlocks.forEach(element => {
                     elementToChange = facadeImage;
                     localStorage.setItem('facade', newSrc);
                     localStorage.setItem('facadeText', newText);
+                    let newColor = element.getAttribute('data-color');
+                    localStorage.setItem('facadeColor', newColor);
                     // loaderType.innerHTML = `фасад в цвете`;
                     break;
                 case 'handles' :

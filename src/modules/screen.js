@@ -30,6 +30,7 @@ function firstScreen() {
     }
 
     checkGlobalIndex();
+    setActiveItems();
     
     function setNewImage() {
         return new Promise((resolve) => {
@@ -101,6 +102,7 @@ function firstScreen() {
             toggleImages();
         }
         setLocalInfo();
+        setActiveItems();
     }
     
     waitNewImage();
@@ -112,6 +114,58 @@ function toggleFirstScreen() {
     // document.querySelector('.handle__container').classList.toggle('handle__container--lock');
     document.querySelectorAll('.handle__left, .handle__right, .handle__middle, .handle__change').forEach(element => {
         element.classList.toggle('handle--events-lock')
+    })
+}
+
+function setActiveItems() {
+    styleBlocks.forEach(element => {
+        const localStyle = localStorage.getItem('style');
+        const localFacade = localStorage.getItem('facade');
+        const localHandle = localStorage.getItem('handles');
+
+        const changeStyleButtons = element.querySelectorAll('.handle__option');
+
+        changeStyleButtons.forEach(element => {
+            let imageAngle = localStorage.getItem('angle');
+            let imageToCheck = '';
+            switch (imageAngle) {
+                case "1" : 
+                    imageToCheck = element.getAttribute('data-image');
+                    break;
+                case "2" : 
+                    imageToCheck = element.getAttribute('data-image-secondary');
+                    break;
+                case "3" : 
+                    imageToCheck = element.getAttribute('data-image-third');
+                    break;
+            }
+    
+            if (localStyle !== null && element.getAttribute('data-type') === 'style' && localStyle === imageToCheck) {
+                setActiveOption();
+            }
+    
+            if (localFacade !== null && element.getAttribute('data-type') === 'facade' && localFacade === imageToCheck) {
+                setActiveOption();
+                console.log(imageToCheck);
+            }
+    
+            if (localHandle !== null && element.getAttribute('data-type') === 'handle' && localHandle === imageToCheck) {
+                setActiveOption();
+            }
+
+            function setActiveOption() {
+                resetStyleButtons();
+                element.setAttribute('data-active', 'true');
+                element.classList.add('handle__option--active');
+            }
+        })
+
+        function resetStyleButtons() {
+            changeStyleButtons.forEach(element => {
+                element.setAttribute('data-active', 'false');
+                element.classList.remove('handle__option--active');
+            })
+        }
     })
 }
 
