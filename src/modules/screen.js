@@ -2,6 +2,8 @@ function firstScreen() {
     const previewLoader = document.querySelector('#preview .preview__loading-block');
     const previewButton = document.querySelector('#preview .preview__button');
 
+    // check if we need show first screen
+
     let screenCounter = localStorage.getItem('screenCounter');
     if (screenCounter === null) {
         localStorage.setItem('screenCounter', '1');
@@ -14,17 +16,18 @@ function firstScreen() {
         toggleFirstScreen();
     }
 
+    // get localstorage info
+
     const localStyleImage = localStorage.getItem('style');
     const localFacadeImage = localStorage.getItem('facade');
     const localHandleImage = localStorage.getItem('handle');
 
-    const localSlideIndex = localStorage.getItem('angle');
+    // set localstorage angle if we have it
 
+    const localSlideIndex = localStorage.getItem('angle');
     if (localSlideIndex != null) {
         globalSlideIndex = Number(localSlideIndex);
     }
-
-    
 
     checkGlobalIndex();
     

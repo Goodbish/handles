@@ -64,6 +64,8 @@ function setLocalInfo() {
     const previewLoader = document.querySelector('#preview .preview__loading-block');
     const previewButton = document.querySelector('#preview .preview__button');
 
+    // check if we need show first screen
+
     let screenCounter = localStorage.getItem('screenCounter');
     if (screenCounter === null) {
         localStorage.setItem('screenCounter', '1');
@@ -76,17 +78,18 @@ function setLocalInfo() {
         toggleFirstScreen();
     }
 
+    // get localstorage info
+
     const localStyleImage = localStorage.getItem('style');
     const localFacadeImage = localStorage.getItem('facade');
     const localHandleImage = localStorage.getItem('handle');
 
-    const localSlideIndex = localStorage.getItem('angle');
+    // set localstorage angle if we have it
 
+    const localSlideIndex = localStorage.getItem('angle');
     if (localSlideIndex != null) {
         globalSlideIndex = Number(localSlideIndex);
     }
-
-    
 
     checkGlobalIndex();
     
@@ -488,17 +491,19 @@ zoomButton.addEventListener('click', function() {
     }
     toggleHideElements(zoomElementsToHide);
 })
-    // const searchBlock = document.querySelector('.search');
+    const searchBlock = document.querySelector('.search');
+const detailBlock = document.querySelector('.detail');
 
-// function setSearchHeight() {
-//     let containerHeight = containerBlock.offsetHeight;
+function setSearchHeight() {
+    let containerHeight = containerBlock.offsetHeight;
+    let resultHeight = `${containerHeight - 10}px`;
+    searchBlock.style.maxHeight = resultHeight;
+    detailBlock.style.maxHeight = resultHeight;
+}
 
-//     searchBlock.style.maxHeight = `${containerHeight - 10}px`
-// }
-
-// window.addEventListener('load', () => {
-//     setSearchHeight();
-// });
+window.addEventListener('load', () => {
+    setSearchHeight();
+});
 
 
     const controlButtons = document.querySelectorAll('.search__control-3d');
