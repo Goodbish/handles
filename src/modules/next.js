@@ -64,28 +64,47 @@ changeAngleButtons.forEach(button => {
     
         function setNewImage() {
             return new Promise((resolve) => {
-                mainImage.setAttribute('src', newMainImage);
-                facadeImage.setAttribute('src', newFacadeImage);
-                handlesImage.setAttribute('src', newHandlesImage);
+                // document.querySelector('.handle__background-image--main img').setAttribute('src', newMainImage);
+                // facadeImage.setAttribute('src', newFacadeImage);
+                // handlesImage.setAttribute('src', newHandlesImage);
         
-                let check = [false, false, false];
-                mainImage.onload = function() {
-                    check[0] = true;
-                    if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
-                        resolve();
+                let check = [];
+                resetImages(mainImageBlock);
+                setListImage(mainImageBlock, newMainImage, check);
+
+                resetImages(facadeImageBlock);
+                setListImage(facadeImageBlock, newFacadeImage, check);
+        
+                resetImages(handlesImageBlock);
+                setListImage(handlesImageBlock, newHandlesImage, check);
+
+                function imageLoaded(array) {
+                    for (let i = 0; i < array.length; i++) {
+                        if (array[i] === false) {
+                            array[i] = true;
+                        }
                     }
                 }
-        
-                facadeImage.onload = function() {
-                    check[1] = true;
-                    if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
-                        resolve();
-                    }
+                
+                function setListImage(elementToChange, stringList, array) {
+                    srcList = stringList.split(',');
+                    srcList.forEach(() => {
+                        array.push(false);
+                    });
+                    srcList.forEach(newSrc => {
+                        let img = document.createElement("img");
+                        img.src = newSrc;
+                        img.classList.add('handle__background-img');
+                        elementToChange.appendChild(img);
+                        img.onload = function() {
+                            imageLoaded(array);
+                            checkArray(array);
+                        }
+                    })
                 }
-        
-                handlesImage.onload = function() {
-                    check[2] = true;
-                    if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                
+                function checkArray(array) {
+                    if (arrayChecker(array)) {
                         resolve();
                     }
                 }

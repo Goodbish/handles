@@ -1,7 +1,10 @@
 const containerBlock = document.querySelector('.handle__container');
-const mainImage = document.querySelector('.handle__background-image--main img');
-const facadeImage = document.querySelector('.handle__background-image--2 img');
-const handlesImage = document.querySelector('.handle__background-image--3 img');
+const mainImageBlock = document.querySelector('.handle__background-image--main');
+const mainImage = mainImageBlock.querySelector('img');
+const facadeImageBlock = document.querySelector('.handle__background-image--2');
+const facadeImage = facadeImageBlock.querySelector('img');
+const handlesImageBlock = document.querySelector('.handle__background-image--3');
+const handlesImage = handlesImageBlock.querySelector('img');
 const loaderType = document.querySelector('.preview__load-type');
 const loaderItem = document.querySelector('.preview__load-text');
 let newMainImage = '';
@@ -71,3 +74,55 @@ function setLocalInfo() {
         selectedColor.style.background = localFacadeColor;
     }
 }
+
+// checks if all elements in array are true
+let arrayChecker = arr => arr.every(v => v === true);
+
+function resetImages(block) {
+    block.innerHTML = '';
+}
+
+function resetStyleBlocks(exception) {
+    styleBlocks.forEach(element => {
+        if (element !== exception || exception === null) {
+            if (!element.classList.contains('handle__icon--hover')) {
+                element.querySelector('.handle__icon--hover').classList.remove('handle__icon--clicked');
+            } else {
+                element.classList.remove('handle__icon--clicked');
+            }
+            element.querySelector('.handle__style').classList.remove('handle__style--active');
+        }
+        
+    })
+}
+
+// function imageLoaded(array) {
+//     for (let i = 0; i < array.length; i++) {
+//         if (array[i] === false) {
+//             array[i] = true;
+//         }
+//     }
+// }
+
+// function setListImage(elementToChange, stringList, array) {
+//     srcList = stringList.split(',');
+//     srcList.forEach(() => {
+//         array.push(false);
+//     });
+//     srcList.forEach(newSrc => {
+//         let img = document.createElement("img");
+//         img.src = newSrc;
+//         img.classList.add('handle__background-img');
+//         elementToChange.appendChild(img);
+//         img.onload = function() {
+//             imageLoaded(array);
+//             checkArray(array);
+//         }
+//     })
+// }
+
+// function checkArray(array) {
+//     if (arrayChecker(array)) {
+//         resolve();
+//     }
+// }

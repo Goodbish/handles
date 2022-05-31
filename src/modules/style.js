@@ -26,20 +26,20 @@ styleBlocks.forEach(element => {
             element.setAttribute('data-active', 'true');
             // here function to set bg
             let angle = localStorage.getItem('angle');
-            let newSrc = '';
+            let srcList = '';
             
             switch (angle) {
                 case '1' :
-                    newSrc = element.getAttribute('data-image');
+                    srcList = element.getAttribute('data-image');
                     break;
                 case '2' :
-                    newSrc = element.getAttribute('data-image-secondary');
+                    srcList = element.getAttribute('data-image-secondary');
                     break;
                 case '3' :
-                    newSrc = element.getAttribute('data-image-third');
+                    srcList = element.getAttribute('data-image-third');
                     break;
                 default: 
-                    newSrc = element.getAttribute('data-image');
+                    srcList = element.getAttribute('data-image');
             }
             
             let newText = element.querySelector('span').innerHTML;
@@ -49,22 +49,22 @@ styleBlocks.forEach(element => {
             let elementToChange;
             switch (styleType) {
                 case 'style' :
-                    elementToChange = mainImage;
-                    localStorage.setItem('style', newSrc);
+                    elementToChange = mainImageBlock;
+                    localStorage.setItem('style', srcList);
                     localStorage.setItem('styleText', newText);
                     // loaderType.innerHTML = `интерьер в стиле`;
                     break;
                 case 'facade' : 
-                    elementToChange = facadeImage;
-                    localStorage.setItem('facade', newSrc);
+                    elementToChange = facadeImageBlock;
+                    localStorage.setItem('facade', srcList);
                     localStorage.setItem('facadeText', newText);
                     let newColor = element.getAttribute('data-color');
                     localStorage.setItem('facadeColor', newColor);
                     // loaderType.innerHTML = `фасад в цвете`;
                     break;
                 case 'handles' :
-                    elementToChange = handlesImage;
-                    localStorage.setItem('handles', newSrc);
+                    elementToChange = handlesImageBlock;
+                    localStorage.setItem('handles', srcList);
                     localStorage.setItem('handlesText', newText);
                     // loaderType.innerHTML = `ручки`;
                     break;
@@ -73,16 +73,38 @@ styleBlocks.forEach(element => {
                     break;
             }
 
+            srcList = srcList.split(',');
             loaderType.innerText = `интерьер`;
             loaderItem.innerText = ``;
+            resetImages(elementToChange);
+            console.log('elementToChange:')
+            console.log(elementToChange);
             // loaderItem.innerText = `${newText}`;
 
             function setNewImage() {
                 return new Promise((resolve) => {
-                    elementToChange.setAttribute('src', newSrc);
-                    elementToChange.onload = function() {
-                        resolve();
+                    let checkList = [];
+                    for (let i = 0; i < srcList.length; i++) {
+                        checkList[i] = false;
                     }
+                    srcList.forEach(newSrc => {
+                        let img = document.createElement("img");
+                        img.src = newSrc;
+                        img.classList.add('handle__background-img');
+                        elementToChange.appendChild(img);
+                        img.onload = function() {
+                            for (let i = 0; i < srcList.length; i++) {
+                                if (i === srcList.length -1) {
+                                    resolve();
+                                }
+
+                                if (checkList[i] === false) {
+                                    checkList[i] = true;
+                                }
+                            }
+                        }
+                        
+                    })
                 })
             }
             
@@ -103,21 +125,9 @@ styleBlocks.forEach(element => {
             element.classList.remove('handle__option--active');
         })
     }
-
-    function resetStyleBlocks(exception) {
-        styleBlocks.forEach(element => {
-            if (element !== exception || exception === null) {
-                if (!element.classList.contains('handle__icon--hover')) {
-                    element.querySelector('.handle__icon--hover').classList.remove('handle__icon--clicked');
-                } else {
-                    element.classList.remove('handle__icon--clicked');
-                }
-                element.querySelector('.handle__style').classList.remove('handle__style--active');
-            }
-            
-        })
-    }
 });
+
+
 
 contentStyleBlocks.forEach(element => {
     element.addEventListener('click', (e) => {

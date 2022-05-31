@@ -34,52 +34,83 @@ function firstScreen() {
     
     function setNewImage() {
         return new Promise((resolve) => {
-            let check = [false, false, false];
+            let check = [false];
 
-            mainImage.onload = function() {
-                check[0] = true;
-                checkArray()
-            }
+            // mainImage.onload = function() {
+            //     imageLoaded(check);
+            //     checkArray(check);
+            // }
+
+            // if (localStyleImage !== null) {
+            //     mainImage.setAttribute('src', localStyleImage);
+            // } else {
+            //     let initiaMainImage = mainImage.getAttribute('src');
+            //     mainImage.setAttribute('src', initiaMainImage);
+            // }
 
             if (localStyleImage !== null) {
-                mainImage.setAttribute('src', localStyleImage);
+                resetImages(mainImageBlock);
+                setListImage(mainImageBlock, localStyleImage, check);
             } else {
+                resetImages(facadeImageBlock);
                 let initiaMainImage = mainImage.getAttribute('src');
-                mainImage.setAttribute('src', initiaMainImage);
-            }
-
-            facadeImage.onload = function() {
-                check[1] = true;
-                checkArray();
+                setListImage(facadeImageBlock, initiaMainImage, check);
             }
 
             if (localFacadeImage !== null) {
-                facadeImage.setAttribute('src', localFacadeImage);
+                resetImages(facadeImageBlock);
+                setListImage(facadeImageBlock, localFacadeImage, check);
             } else {
+                resetImages(facadeImageBlock);
                 let initiaFacadeImage = mainImage.getAttribute('src');
-                facadeImage.setAttribute('src', initiaFacadeImage);
+                setListImage(facadeImageBlock, initiaFacadeImage, check);
             }
-            
 
             if (handlesImage.copmlete) {
-                check[2] = true;
-                checkArray();
+                imageLoaded(check);
+                checkArray(check);
             } else {
                 handlesImage.onload = function() {
-                    check[2] = true;
-                    checkArray();
+                    imageLoaded(check);
+                    checkArray(check);
                 }
             }
 
             if (localHandleImage !== null) {
+                console.log('hello');
                 handlesImage.setAttribute('src', localHandleImage);
             } else {
-                let initiaHandlesImage = mainImage.getAttribute('src');
+                let initiaHandlesImage = handlesImage.getAttribute('src');
                 handlesImage.setAttribute('src', initiaHandlesImage);
             }
 
-            function checkArray() {
-                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+            function imageLoaded(array) {
+                for (let i = 0; i < array.length; i++) {
+                    if (array[i] === false) {
+                        array[i] = true;
+                    }
+                }
+            }
+    
+            function setListImage(elementToChange, stringList, array) {
+                srcList = stringList.split(',');
+                srcList.forEach(() => {
+                    array.push(false);
+                });
+                srcList.forEach(newSrc => {
+                    let img = document.createElement("img");
+                    img.src = newSrc;
+                    img.classList.add('handle__background-img');
+                    elementToChange.appendChild(img);
+                    img.onload = function() {
+                        imageLoaded(array);
+                        checkArray(array);
+                    }
+                })
+            }
+    
+            function checkArray(array) {
+                if (arrayChecker(array)) {
                     resolve();
                 }
             }
@@ -116,6 +147,7 @@ function toggleFirstScreen() {
         element.classList.toggle('handle--events-lock')
     })
 }
+
 
 function setActiveItems() {
     styleBlocks.forEach(element => {

@@ -34,6 +34,7 @@ function setZoomEvent(e) {
 
 zoomButton.addEventListener('click', function() {
     zoomLever = !zoomLever;
+    resetStyleBlocks();
     if (zoomLever) {
         zoomBlock.classList.add('handle__zoom--active');
         zoomContainer.classList.add('handle__container--zoom-cursor');

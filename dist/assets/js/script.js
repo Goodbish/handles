@@ -1,9 +1,12 @@
 
 document.addEventListener("DOMContentLoaded", function(event) { 
     const containerBlock = document.querySelector('.handle__container');
-const mainImage = document.querySelector('.handle__background-image--main img');
-const facadeImage = document.querySelector('.handle__background-image--2 img');
-const handlesImage = document.querySelector('.handle__background-image--3 img');
+const mainImageBlock = document.querySelector('.handle__background-image--main');
+const mainImage = mainImageBlock.querySelector('img');
+const facadeImageBlock = document.querySelector('.handle__background-image--2');
+const facadeImage = facadeImageBlock.querySelector('img');
+const handlesImageBlock = document.querySelector('.handle__background-image--3');
+const handlesImage = handlesImageBlock.querySelector('img');
 const loaderType = document.querySelector('.preview__load-type');
 const loaderItem = document.querySelector('.preview__load-text');
 let newMainImage = '';
@@ -73,6 +76,58 @@ function setLocalInfo() {
         selectedColor.style.background = localFacadeColor;
     }
 }
+
+// checks if all elements in array are true
+let arrayChecker = arr => arr.every(v => v === true);
+
+function resetImages(block) {
+    block.innerHTML = '';
+}
+
+function resetStyleBlocks(exception) {
+    styleBlocks.forEach(element => {
+        if (element !== exception || exception === null) {
+            if (!element.classList.contains('handle__icon--hover')) {
+                element.querySelector('.handle__icon--hover').classList.remove('handle__icon--clicked');
+            } else {
+                element.classList.remove('handle__icon--clicked');
+            }
+            element.querySelector('.handle__style').classList.remove('handle__style--active');
+        }
+        
+    })
+}
+
+// function imageLoaded(array) {
+//     for (let i = 0; i < array.length; i++) {
+//         if (array[i] === false) {
+//             array[i] = true;
+//         }
+//     }
+// }
+
+// function setListImage(elementToChange, stringList, array) {
+//     srcList = stringList.split(',');
+//     srcList.forEach(() => {
+//         array.push(false);
+//     });
+//     srcList.forEach(newSrc => {
+//         let img = document.createElement("img");
+//         img.src = newSrc;
+//         img.classList.add('handle__background-img');
+//         elementToChange.appendChild(img);
+//         img.onload = function() {
+//             imageLoaded(array);
+//             checkArray(array);
+//         }
+//     })
+// }
+
+// function checkArray(array) {
+//     if (arrayChecker(array)) {
+//         resolve();
+//     }
+// }
     function firstScreen() {
     const previewLoader = document.querySelector('#preview .preview__loading-block');
     const previewButton = document.querySelector('#preview .preview__button');
@@ -109,52 +164,83 @@ function setLocalInfo() {
     
     function setNewImage() {
         return new Promise((resolve) => {
-            let check = [false, false, false];
+            let check = [false];
 
-            mainImage.onload = function() {
-                check[0] = true;
-                checkArray()
-            }
+            // mainImage.onload = function() {
+            //     imageLoaded(check);
+            //     checkArray(check);
+            // }
+
+            // if (localStyleImage !== null) {
+            //     mainImage.setAttribute('src', localStyleImage);
+            // } else {
+            //     let initiaMainImage = mainImage.getAttribute('src');
+            //     mainImage.setAttribute('src', initiaMainImage);
+            // }
 
             if (localStyleImage !== null) {
-                mainImage.setAttribute('src', localStyleImage);
+                resetImages(mainImageBlock);
+                setListImage(mainImageBlock, localStyleImage, check);
             } else {
+                resetImages(facadeImageBlock);
                 let initiaMainImage = mainImage.getAttribute('src');
-                mainImage.setAttribute('src', initiaMainImage);
-            }
-
-            facadeImage.onload = function() {
-                check[1] = true;
-                checkArray();
+                setListImage(facadeImageBlock, initiaMainImage, check);
             }
 
             if (localFacadeImage !== null) {
-                facadeImage.setAttribute('src', localFacadeImage);
+                resetImages(facadeImageBlock);
+                setListImage(facadeImageBlock, localFacadeImage, check);
             } else {
+                resetImages(facadeImageBlock);
                 let initiaFacadeImage = mainImage.getAttribute('src');
-                facadeImage.setAttribute('src', initiaFacadeImage);
+                setListImage(facadeImageBlock, initiaFacadeImage, check);
             }
-            
 
             if (handlesImage.copmlete) {
-                check[2] = true;
-                checkArray();
+                imageLoaded(check);
+                checkArray(check);
             } else {
                 handlesImage.onload = function() {
-                    check[2] = true;
-                    checkArray();
+                    imageLoaded(check);
+                    checkArray(check);
                 }
             }
 
             if (localHandleImage !== null) {
+                console.log('hello');
                 handlesImage.setAttribute('src', localHandleImage);
             } else {
-                let initiaHandlesImage = mainImage.getAttribute('src');
+                let initiaHandlesImage = handlesImage.getAttribute('src');
                 handlesImage.setAttribute('src', initiaHandlesImage);
             }
 
-            function checkArray() {
-                if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+            function imageLoaded(array) {
+                for (let i = 0; i < array.length; i++) {
+                    if (array[i] === false) {
+                        array[i] = true;
+                    }
+                }
+            }
+    
+            function setListImage(elementToChange, stringList, array) {
+                srcList = stringList.split(',');
+                srcList.forEach(() => {
+                    array.push(false);
+                });
+                srcList.forEach(newSrc => {
+                    let img = document.createElement("img");
+                    img.src = newSrc;
+                    img.classList.add('handle__background-img');
+                    elementToChange.appendChild(img);
+                    img.onload = function() {
+                        imageLoaded(array);
+                        checkArray(array);
+                    }
+                })
+            }
+    
+            function checkArray(array) {
+                if (arrayChecker(array)) {
                     resolve();
                 }
             }
@@ -191,6 +277,7 @@ function toggleFirstScreen() {
         element.classList.toggle('handle--events-lock')
     })
 }
+
 
 function setActiveItems() {
     styleBlocks.forEach(element => {
@@ -331,28 +418,47 @@ changeAngleButtons.forEach(button => {
     
         function setNewImage() {
             return new Promise((resolve) => {
-                mainImage.setAttribute('src', newMainImage);
-                facadeImage.setAttribute('src', newFacadeImage);
-                handlesImage.setAttribute('src', newHandlesImage);
+                // document.querySelector('.handle__background-image--main img').setAttribute('src', newMainImage);
+                // facadeImage.setAttribute('src', newFacadeImage);
+                // handlesImage.setAttribute('src', newHandlesImage);
         
-                let check = [false, false, false];
-                mainImage.onload = function() {
-                    check[0] = true;
-                    if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
-                        resolve();
+                let check = [];
+                resetImages(mainImageBlock);
+                setListImage(mainImageBlock, newMainImage, check);
+
+                resetImages(facadeImageBlock);
+                setListImage(facadeImageBlock, newFacadeImage, check);
+        
+                resetImages(handlesImageBlock);
+                setListImage(handlesImageBlock, newHandlesImage, check);
+
+                function imageLoaded(array) {
+                    for (let i = 0; i < array.length; i++) {
+                        if (array[i] === false) {
+                            array[i] = true;
+                        }
                     }
                 }
-        
-                facadeImage.onload = function() {
-                    check[1] = true;
-                    if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
-                        resolve();
-                    }
+                
+                function setListImage(elementToChange, stringList, array) {
+                    srcList = stringList.split(',');
+                    srcList.forEach(() => {
+                        array.push(false);
+                    });
+                    srcList.forEach(newSrc => {
+                        let img = document.createElement("img");
+                        img.src = newSrc;
+                        img.classList.add('handle__background-img');
+                        elementToChange.appendChild(img);
+                        img.onload = function() {
+                            imageLoaded(array);
+                            checkArray(array);
+                        }
+                    })
                 }
-        
-                handlesImage.onload = function() {
-                    check[2] = true;
-                    if (JSON.stringify(check) === JSON.stringify([true, true, true])) {
+                
+                function checkArray(array) {
+                    if (arrayChecker(array)) {
                         resolve();
                     }
                 }
@@ -406,20 +512,20 @@ styleBlocks.forEach(element => {
             element.setAttribute('data-active', 'true');
             // here function to set bg
             let angle = localStorage.getItem('angle');
-            let newSrc = '';
+            let srcList = '';
             
             switch (angle) {
                 case '1' :
-                    newSrc = element.getAttribute('data-image');
+                    srcList = element.getAttribute('data-image');
                     break;
                 case '2' :
-                    newSrc = element.getAttribute('data-image-secondary');
+                    srcList = element.getAttribute('data-image-secondary');
                     break;
                 case '3' :
-                    newSrc = element.getAttribute('data-image-third');
+                    srcList = element.getAttribute('data-image-third');
                     break;
                 default: 
-                    newSrc = element.getAttribute('data-image');
+                    srcList = element.getAttribute('data-image');
             }
             
             let newText = element.querySelector('span').innerHTML;
@@ -429,22 +535,22 @@ styleBlocks.forEach(element => {
             let elementToChange;
             switch (styleType) {
                 case 'style' :
-                    elementToChange = mainImage;
-                    localStorage.setItem('style', newSrc);
+                    elementToChange = mainImageBlock;
+                    localStorage.setItem('style', srcList);
                     localStorage.setItem('styleText', newText);
                     // loaderType.innerHTML = `интерьер в стиле`;
                     break;
                 case 'facade' : 
-                    elementToChange = facadeImage;
-                    localStorage.setItem('facade', newSrc);
+                    elementToChange = facadeImageBlock;
+                    localStorage.setItem('facade', srcList);
                     localStorage.setItem('facadeText', newText);
                     let newColor = element.getAttribute('data-color');
                     localStorage.setItem('facadeColor', newColor);
                     // loaderType.innerHTML = `фасад в цвете`;
                     break;
                 case 'handles' :
-                    elementToChange = handlesImage;
-                    localStorage.setItem('handles', newSrc);
+                    elementToChange = handlesImageBlock;
+                    localStorage.setItem('handles', srcList);
                     localStorage.setItem('handlesText', newText);
                     // loaderType.innerHTML = `ручки`;
                     break;
@@ -453,16 +559,38 @@ styleBlocks.forEach(element => {
                     break;
             }
 
+            srcList = srcList.split(',');
             loaderType.innerText = `интерьер`;
             loaderItem.innerText = ``;
+            resetImages(elementToChange);
+            console.log('elementToChange:')
+            console.log(elementToChange);
             // loaderItem.innerText = `${newText}`;
 
             function setNewImage() {
                 return new Promise((resolve) => {
-                    elementToChange.setAttribute('src', newSrc);
-                    elementToChange.onload = function() {
-                        resolve();
+                    let checkList = [];
+                    for (let i = 0; i < srcList.length; i++) {
+                        checkList[i] = false;
                     }
+                    srcList.forEach(newSrc => {
+                        let img = document.createElement("img");
+                        img.src = newSrc;
+                        img.classList.add('handle__background-img');
+                        elementToChange.appendChild(img);
+                        img.onload = function() {
+                            for (let i = 0; i < srcList.length; i++) {
+                                if (i === srcList.length -1) {
+                                    resolve();
+                                }
+
+                                if (checkList[i] === false) {
+                                    checkList[i] = true;
+                                }
+                            }
+                        }
+                        
+                    })
                 })
             }
             
@@ -483,21 +611,9 @@ styleBlocks.forEach(element => {
             element.classList.remove('handle__option--active');
         })
     }
-
-    function resetStyleBlocks(exception) {
-        styleBlocks.forEach(element => {
-            if (element !== exception || exception === null) {
-                if (!element.classList.contains('handle__icon--hover')) {
-                    element.querySelector('.handle__icon--hover').classList.remove('handle__icon--clicked');
-                } else {
-                    element.classList.remove('handle__icon--clicked');
-                }
-                element.querySelector('.handle__style').classList.remove('handle__style--active');
-            }
-            
-        })
-    }
 });
+
+
 
 contentStyleBlocks.forEach(element => {
     element.addEventListener('click', (e) => {
@@ -546,6 +662,7 @@ function setZoomEvent(e) {
 
 zoomButton.addEventListener('click', function() {
     zoomLever = !zoomLever;
+    resetStyleBlocks();
     if (zoomLever) {
         zoomBlock.classList.add('handle__zoom--active');
         zoomContainer.classList.add('handle__container--zoom-cursor');

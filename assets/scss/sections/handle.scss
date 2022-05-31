@@ -28,14 +28,14 @@
     &__middle {
         position: absolute;
         top: 0;
-        z-index: 1;
+        z-index: 4;
         transition: all 0.3s ease;
     }
 
     &__left {
         left: 0;
         display: flex;
-        z-index: 2;
+        z-index: 5;
 
         &-list {
             padding-top: 7px;
@@ -110,10 +110,18 @@
 
             &--2 {
                 z-index: 1;
+
+                img {
+                    z-index: 2;
+                }
             }
 
             &--3 {
                 z-index: 2;
+
+                img {
+                    z-index: 3;
+                }
             }
         }
 
@@ -398,7 +406,7 @@
         align-items: center;
         width: 52px;
         height: 52px;
-        z-index: 1;
+        z-index: 3;
         cursor: pointer;
         background-color: white;
         transition: all 0.3s ease;
@@ -485,6 +493,27 @@
         &-text {
             font-size: 14px;
             font-weight: 500;
+        }
+
+        &-number {
+            position: absolute;
+            top: 3px;
+            right: 4px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            z-index: 2;
+            background: rgb(232, 83, 90);
+        }
+
+        &-quantity {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'PT Sans', sans-serif;
+            font-size: 11px;
+            color: white;
         }
     }
 
