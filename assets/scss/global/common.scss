@@ -74,3 +74,10 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
 }
+
+.tippy-box[data-theme~='handle'] {
+	background-color: #dadada;
+	color: black;
+	font-size: 12px;
+	font-family: 'Roboto', sans-serif;
+}

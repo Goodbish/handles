@@ -13,11 +13,10 @@
     <main class="main">
         <section class="handle">
             <div class="handle__container">
-
                 <div class="handle__left">
                     <div class="handle__left-list">
                         <div class="handle__left-item">
-                            <div class="handle__icon  handle__icon--hover">
+                            <div class="handle__icon  handle__icon--hover" id="home-icon">
                                 <div class="handle__icon-big"></div>
                                 <svg class="handle__icon-main" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px">
@@ -26,7 +25,7 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="handle__left-item handle-zoom">
+                        <div class="handle__left-item handle-zoom" id="zoom-icon">
                             <div class="handle__icon handle__icon--hover">
                                 <div class="handle__icon-big"></div>
                                 <svg class="handle__icon-main" xmlns="http://www.w3.org/2000/svg"
@@ -36,8 +35,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="handle__left-item handle-hide">
-                            <div class="handle__icon n handle__icon--hover">
+                        <div class="handle__left-item handle-hide" id="hide-icon">
+                            <div class="handle__icon handle__icon--hover">
                                 <div class="handle__icon-big"></div>
                                 <svg class="handle__icon-main" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="29px" height="30px">
@@ -46,7 +45,7 @@
                                 </svg>
                             </div>
 
-                            <div class="handle__icon  handle__icon--alt">
+                            <div class="handle__icon handle__icon--alt">
                                 <div class="handle__icon-big"></div>
                                 <svg class="handle__icon-main" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="33px" height="33px">
@@ -55,7 +54,7 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="handle__left-item">
+                        <div class="handle__left-item" id="share-icon">
                             <div class="handle__icon  handle__icon--hover">
                                 <div class="handle__icon-big"></div>
                                 <svg class="handle__icon-main" xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +64,7 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="handle__left-item">
+                        <div class="handle__left-item" id="basket-icon">
                             <div class="handle__icon  handle__icon--hover">
                                 <div class="handle__icon-big"></div>
                                 <div class="handle__icon-number">
@@ -80,7 +79,7 @@
                         </div>
                     </div>
 
-                    <div class="handle__filter-block handle__icon--hover handle-style">
+                    <div class="handle__filter-block handle__icon--hover handle-style" id="handle-icon">
                         <div class="handle__filter-icon">
                             <div class="handle__icon-big"></div>
                             <svg class="handle__icon-main" xmlns="http://www.w3.org/2000/svg"
@@ -249,7 +248,7 @@
                     </div>
                 </div>
             </div>
-            <div class="search__control-item search__control-item--hidden">
+            <div class="search__control-item search__control-link search__control-item--hidden">
                 <svg 
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -258,7 +257,7 @@
                 d="M10.181,19.424 C4.993,19.424 0.772,15.203 0.772,10.14 C0.772,4.826 4.993,0.604 10.181,0.604 C15.370,0.604 19.591,4.826 19.591,10.14 C19.591,15.203 15.370,19.424 10.181,19.424 ZM10.181,1.759 C5.629,1.759 1.926,5.462 1.926,10.14 C1.926,14.566 5.629,18.269 10.181,18.269 C14.733,18.269 18.436,14.566 18.436,10.14 C18.436,5.462 14.733,1.759 10.181,1.759 ZM10.181,7.588 C9.68,7.588 8.161,6.682 8.161,5.568 C8.161,4.455 9.68,3.549 10.181,3.549 C11.295,3.549 12.201,4.455 12.201,5.568 C12.201,6.682 11.295,7.588 10.181,7.588 ZM10.181,4.703 C9.704,4.703 9.316,5.91 9.316,5.568 C9.316,6.46 9.704,6.434 10.181,6.434 C10.658,6.434 11.46,6.46 11.46,5.568 C11.46,5.91 10.658,4.703 10.181,4.703 ZM9.239,8.745 L11.123,8.745 C11.442,8.745 11.700,9.3 11.700,9.322 L11.700,16.152 C11.700,16.471 11.442,16.729 11.123,16.729 L9.239,16.729 C8.920,16.729 8.662,16.471 8.662,16.152 L8.662,9.322 C8.662,9.3 8.920,8.745 9.239,8.745 ZM9.816,15.575 L10.546,15.575 L10.546,9.899 L9.816,9.899 L9.816,15.575 Z"/>
                 </svg>
             </div>
-            <div class="search__control-item search__control-item--hidden">
+            <div class="search__control-item search__control-add search__control-item--hidden">
                 <svg 
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -331,7 +330,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="search__control-item search__control-item--hidden">
+                    <div class="search__control-item search__control-link search__control-item--hidden">
                         <svg 
                         xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -340,7 +339,7 @@
                         d="M10.181,19.424 C4.993,19.424 0.772,15.203 0.772,10.14 C0.772,4.826 4.993,0.604 10.181,0.604 C15.370,0.604 19.591,4.826 19.591,10.14 C19.591,15.203 15.370,19.424 10.181,19.424 ZM10.181,1.759 C5.629,1.759 1.926,5.462 1.926,10.14 C1.926,14.566 5.629,18.269 10.181,18.269 C14.733,18.269 18.436,14.566 18.436,10.14 C18.436,5.462 14.733,1.759 10.181,1.759 ZM10.181,7.588 C9.68,7.588 8.161,6.682 8.161,5.568 C8.161,4.455 9.68,3.549 10.181,3.549 C11.295,3.549 12.201,4.455 12.201,5.568 C12.201,6.682 11.295,7.588 10.181,7.588 ZM10.181,4.703 C9.704,4.703 9.316,5.91 9.316,5.568 C9.316,6.46 9.704,6.434 10.181,6.434 C10.658,6.434 11.46,6.46 11.46,5.568 C11.46,5.91 10.658,4.703 10.181,4.703 ZM9.239,8.745 L11.123,8.745 C11.442,8.745 11.700,9.3 11.700,9.322 L11.700,16.152 C11.700,16.471 11.442,16.729 11.123,16.729 L9.239,16.729 C8.920,16.729 8.662,16.471 8.662,16.152 L8.662,9.322 C8.662,9.3 8.920,8.745 9.239,8.745 ZM9.816,15.575 L10.546,15.575 L10.546,9.899 L9.816,9.899 L9.816,15.575 Z"/>
                         </svg>
                     </div>
-                    <div class="search__control-item search__control-item--hidden">
+                    <div class="search__control-item search__control-add search__control-item--hidden">
                         <svg 
                         xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -405,7 +404,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="search__control-item search__control-item--hidden">
+                <div class="search__control-item search__control-link search__control-item--hidden">
                     <svg 
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -414,7 +413,7 @@
                     d="M10.181,19.424 C4.993,19.424 0.772,15.203 0.772,10.14 C0.772,4.826 4.993,0.604 10.181,0.604 C15.370,0.604 19.591,4.826 19.591,10.14 C19.591,15.203 15.370,19.424 10.181,19.424 ZM10.181,1.759 C5.629,1.759 1.926,5.462 1.926,10.14 C1.926,14.566 5.629,18.269 10.181,18.269 C14.733,18.269 18.436,14.566 18.436,10.14 C18.436,5.462 14.733,1.759 10.181,1.759 ZM10.181,7.588 C9.68,7.588 8.161,6.682 8.161,5.568 C8.161,4.455 9.68,3.549 10.181,3.549 C11.295,3.549 12.201,4.455 12.201,5.568 C12.201,6.682 11.295,7.588 10.181,7.588 ZM10.181,4.703 C9.704,4.703 9.316,5.91 9.316,5.568 C9.316,6.46 9.704,6.434 10.181,6.434 C10.658,6.434 11.46,6.46 11.46,5.568 C11.46,5.91 10.658,4.703 10.181,4.703 ZM9.239,8.745 L11.123,8.745 C11.442,8.745 11.700,9.3 11.700,9.322 L11.700,16.152 C11.700,16.471 11.442,16.729 11.123,16.729 L9.239,16.729 C8.920,16.729 8.662,16.471 8.662,16.152 L8.662,9.322 C8.662,9.3 8.920,8.745 9.239,8.745 ZM9.816,15.575 L10.546,15.575 L10.546,9.899 L9.816,9.899 L9.816,15.575 Z"/>
                     </svg>
                 </div>
-                <div class="search__control-item search__control-item--hidden">
+                <div class="search__control-item search__control-add search__control-item--hidden">
                     <svg 
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -478,7 +477,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="search__control-item search__control-item--hidden">
+                <div class="search__control-item search__control-link search__control-item--hidden">
                     <svg 
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -487,7 +486,7 @@
                     d="M10.181,19.424 C4.993,19.424 0.772,15.203 0.772,10.14 C0.772,4.826 4.993,0.604 10.181,0.604 C15.370,0.604 19.591,4.826 19.591,10.14 C19.591,15.203 15.370,19.424 10.181,19.424 ZM10.181,1.759 C5.629,1.759 1.926,5.462 1.926,10.14 C1.926,14.566 5.629,18.269 10.181,18.269 C14.733,18.269 18.436,14.566 18.436,10.14 C18.436,5.462 14.733,1.759 10.181,1.759 ZM10.181,7.588 C9.68,7.588 8.161,6.682 8.161,5.568 C8.161,4.455 9.68,3.549 10.181,3.549 C11.295,3.549 12.201,4.455 12.201,5.568 C12.201,6.682 11.295,7.588 10.181,7.588 ZM10.181,4.703 C9.704,4.703 9.316,5.91 9.316,5.568 C9.316,6.46 9.704,6.434 10.181,6.434 C10.658,6.434 11.46,6.46 11.46,5.568 C11.46,5.91 10.658,4.703 10.181,4.703 ZM9.239,8.745 L11.123,8.745 C11.442,8.745 11.700,9.3 11.700,9.322 L11.700,16.152 C11.700,16.471 11.442,16.729 11.123,16.729 L9.239,16.729 C8.920,16.729 8.662,16.471 8.662,16.152 L8.662,9.322 C8.662,9.3 8.920,8.745 9.239,8.745 ZM9.816,15.575 L10.546,15.575 L10.546,9.899 L9.816,9.899 L9.816,15.575 Z"/>
                     </svg>
                 </div>
-                <div class="search__control-item search__control-item--hidden">
+                <div class="search__control-item search__control-add search__control-item--hidden">
                     <svg 
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -512,7 +511,7 @@
                                 class="handle__middle-text handle__middle-text--11 handle__middle-text--white handle__middle-text--vertical">Интерьер</span>
                         </div>
 
-                        <div class="handle-style handle-style__middle">
+                        <div class="handle-style handle-style--js-outside handle-style__middle">
                             <div class="handle__middle-item handle__icon--hover">
                                 <div class="handle__middle-icon">
                                     <div class="handle__icon-big"></div>
@@ -561,8 +560,7 @@
                                     <span class="handle__middle-text" id="style-text">МОДЕРН</span>
                                 </div>
                                 <div class="handle__middle-block">
-                                    <span
-                                        class="handle__middle-text handle__middle-text--10 handle__middle-text--grey">изменить</span>
+                                    <span class="handle__middle-text handle__middle-text--10 handle__middle-text--grey">изменить</span>
 
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         width="15px" height="11px">
@@ -574,7 +572,7 @@
                         </div>
 
 
-                        <div class="handle-style handle-style__middle">
+                        <div class="handle-style handle-style--js-outside handle-style__middle">
                             <div class="handle__middle-item handle__icon--hover">
                                 <div class="handle__middle-icon">
                                     <div class="handle__icon-big"></div>
@@ -631,30 +629,35 @@
                                 <div class="handle__middle-block handle__middle-block--align-start" id="facadeColor">
                                     <div class="handle__color" style="background: #aea575;"></div>
                                 </div>
-                                <div class="handle__middle-block handle__middle-block--column">
+                                <div class="handle__middle-block handle__middle-block--height-100 handle__middle-block--column">
                                     <div id="facadeText">
                                         <span class="handle__middle-text handle__middle-text--10">мат. оливковый</span>
-                                    </div>
+                                    </div>  
 
-                                    <div class="handle__middle-arrow">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="11px">
-                                            <path fill-rule="evenodd" fill="rgb(183, 184, 187)"
-                                                d="M14.780,5.923 L10.223,10.480 L9.636,9.892 L13.605,5.923 L0.0,5.923 L0.0,5.92 L13.605,5.92 L9.636,1.123 L10.223,0.535 L14.780,5.92 L14.953,5.92 L14.953,5.923 L14.780,5.923 Z" />
-                                        </svg>
+                                    
+                                    <div class="handle__middle-block handle__middle-block--mt-auto">
+                                        <span class="handle__middle-text handle__middle-text--10 handle__middle-text--grey">изменить</span>
+
+                                        <div class="handle__middle-arrow">
+                                            <svg 
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                                            width="16px" height="11px">
+                                            <path fill-rule="evenodd"  fill="rgb(183, 184, 187)"
+                                            d="M15.178,5.923 L10.621,10.480 L10.34,9.892 L14.3,5.923 L0.397,5.923 L0.397,5.92 L14.3,5.92 L10.34,1.123 L10.621,0.535 L15.178,5.92 L15.351,5.92 L15.351,5.923 L15.178,5.923 Z"/>
+                                            </svg>
+                                        </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
-
                 </div>
 
                 <div class="handle__right">
                     <div class="handle__right-list">
-                        <div class="handle__right-item handle-style handle__icon--hover">
+                        <div class="handle__right-item handle-style handle__icon--hover" id="detail-icon">
                             <div class="handle__right-icon">
                                 <div class="handle__icon-big"></div>
                                 <svg class="handle__icon-main" xmlns="http://www.w3.org/2000/svg"
@@ -787,11 +790,7 @@
 </div>
                             </div>
                         </div>
-
-
                     </div>
-
-                    
                 </div>
 
                 <div class="handle__change handle__next">
@@ -918,6 +917,8 @@
         </section>
     </main>
 
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 

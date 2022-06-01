@@ -20,19 +20,31 @@ function toggleLoader() {
     containerBlock.classList.toggle('handle__container--lock');
 }
 
+function toggleSpecialLoader() {
+    document.querySelector('.handle__background').classList.toggle('handle__background--hide');
+}
+
 function toggleImages() {
     document.querySelector('.handle__background-image--2').classList.toggle('handle__background-image--hide');
     document.querySelector('.handle__background-image--3').classList.toggle('handle__background-image--hide');
 }
 
 function checkGlobalIndex() {
-    if (globalSlideIndex === 3) {
+    if (globalSlideIndex >= 3) {
         document.querySelector('.handle__next').classList.add('handle__change--hide')
     }  else {
         document.querySelector('.handle__next').classList.remove('handle__change--hide')
     }
 
-    if (globalSlideIndex === 1) {
+    if (globalSlideIndex > 3) {
+        globalSlideIndex = 3;
+    }
+
+    if (globalSlideIndex < 1) {
+        globalSlideIndex = 1;
+    }
+
+    if (globalSlideIndex <= 1 ) {
         document.querySelector('.handle__prev').classList.add('handle__change--hide')
     } else {
         document.querySelector('.handle__prev').classList.remove('handle__change--hide')

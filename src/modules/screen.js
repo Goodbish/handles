@@ -88,6 +88,7 @@ function firstScreen() {
                 for (let i = 0; i < array.length; i++) {
                     if (array[i] === false) {
                         array[i] = true;
+                        return
                     }
                 }
             }
@@ -142,6 +143,7 @@ function firstScreen() {
 function toggleFirstScreen() {
     document.querySelector('#preview').classList.toggle('preview--active');
     document.querySelector('.handle__background').classList.toggle('handle__background--blur');
+    document.querySelector('.handle__info').classList.toggle('handle__info--hide');
     // document.querySelector('.handle__container').classList.toggle('handle__container--lock');
     document.querySelectorAll('.handle__left, .handle__right, .handle__middle, .handle__change').forEach(element => {
         element.classList.toggle('handle--events-lock')

@@ -1,5 +1,6 @@
 .handle {
     @import './preview';
+    background: lightgray;
 
     width: 100%;
     overflow: auto;
@@ -75,9 +76,13 @@
 
     &__background {
         position: relative;
-        transition: all 0.3s ease;
+        transition: all 0.2s linear;
         pointer-events: none;
         overflow: hidden;
+
+        &--hide {
+            opacity: 0;
+        }
 
         &-img {
             display: block;
@@ -85,6 +90,7 @@
             max-height: 100vh;
             min-width: 1280px;
             min-height: 720px;
+            user-select: none;
         }
 
         &-image {
@@ -146,7 +152,7 @@
 
             &::before {
                 background: rgba($color: #000000, $alpha: 0.6);
-                z-index: 1;
+                z-index: 5;
             }
         }
     }
@@ -201,6 +207,14 @@
                 align-items: flex-start;
                 height: 100%;
             }
+
+            &--height-100 {
+                height: 100%;
+            }
+
+            &--mt-auto {
+                margin-top: auto;
+            }
         }
 
         &-text {
@@ -240,7 +254,7 @@
             display: flex;
             justify-content: center;
             width: 100%;
-            margin-top: 10px;
+            // margin-top: 10px;
         }
 
         &-icon {
@@ -595,8 +609,8 @@
     &__info {
         position: absolute;
         display: flex;
-        flex-direction: column;
         row-gap: 10px;
+        // column-gap: 20px;
         bottom: 0;
         left: 0;
         padding: 14px 12px;
@@ -607,6 +621,10 @@
         font-weight: 500;
         transition: all 0.3s ease;
 
+        &--hide {
+            opacity: 0;
+        }
+
         &:hover {
             opacity: 1;
         }
@@ -614,7 +632,14 @@
         &-item {
             display: flex;
             align-items: center;
-            column-gap: 20px;
+            column-gap: 10px;
+
+            & + & {
+                &::before {
+                    content: '/';
+                    padding: 0 10px;
+                }
+            }
         }
 
         &-title {

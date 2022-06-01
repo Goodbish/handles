@@ -9,4 +9,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
     @@include('./modules/zoom.js')
     @@include('./modules/searchBlock.js')
     @@include('./modules/showMessage.js')
+    @@include('./modules/tippy.js')
 });

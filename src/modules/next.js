@@ -82,6 +82,7 @@ changeAngleButtons.forEach(button => {
                     for (let i = 0; i < array.length; i++) {
                         if (array[i] === false) {
                             array[i] = true;
+                            return
                         }
                     }
                 }
@@ -112,10 +113,12 @@ changeAngleButtons.forEach(button => {
         }
         
         async function waitNewImage() {
+            toggleSpecialLoader()
             toggleImages();
             toggleLoader();
             await setNewImage();
             setLocalSet();
+            toggleSpecialLoader();
             toggleLoader();
             toggleImages();
             setLocalInfo();

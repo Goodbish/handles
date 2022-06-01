@@ -4,18 +4,30 @@ const closeStyleBlock = document.querySelector('.handle__style-close');
 styleBlocks.forEach(element => {
     function toggleBlock() {
         resetStyleBlocks(element);
-
-        console.log(element);
+        
         if (!element.classList.contains('handle__icon--hover')) {
             element.querySelector('.handle__icon--hover').classList.toggle('handle__icon--clicked');
         } else {
             element.classList.toggle('handle__icon--clicked');
         }
-        element.querySelector('.handle__style').classList.toggle('handle__style--active');
+
+        // setTimeout if for listener below
+        setTimeout(function() {
+            element.querySelector('.handle__style').classList.toggle('handle__style--active');
+        }, 0)
     }
+
+    window.addEventListener('click', function(e) {
+        if (element.classList.contains('handle-style--js-outside') &&
+            e.currentTarget !== element.querySelector('.handle__style') && 
+            element.querySelector('.handle__style').classList.contains('handle__style--active'))    {
+            resetStyleBlocks();
+        }
+    })
 
     element.addEventListener('click', toggleBlock);
     element.querySelector('.handle__style-close').addEventListener('click', resetStyleBlocks);
+
 
     const changeStyleButtons = element.querySelectorAll('.handle__option');
 

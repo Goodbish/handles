@@ -22,19 +22,31 @@ function toggleLoader() {
     containerBlock.classList.toggle('handle__container--lock');
 }
 
+function toggleSpecialLoader() {
+    document.querySelector('.handle__background').classList.toggle('handle__background--hide');
+}
+
 function toggleImages() {
     document.querySelector('.handle__background-image--2').classList.toggle('handle__background-image--hide');
     document.querySelector('.handle__background-image--3').classList.toggle('handle__background-image--hide');
 }
 
 function checkGlobalIndex() {
-    if (globalSlideIndex === 3) {
+    if (globalSlideIndex >= 3) {
         document.querySelector('.handle__next').classList.add('handle__change--hide')
     }  else {
         document.querySelector('.handle__next').classList.remove('handle__change--hide')
     }
 
-    if (globalSlideIndex === 1) {
+    if (globalSlideIndex > 3) {
+        globalSlideIndex = 3;
+    }
+
+    if (globalSlideIndex < 1) {
+        globalSlideIndex = 1;
+    }
+
+    if (globalSlideIndex <= 1 ) {
         document.querySelector('.handle__prev').classList.add('handle__change--hide')
     } else {
         document.querySelector('.handle__prev').classList.remove('handle__change--hide')
@@ -218,6 +230,7 @@ function resetStyleBlocks(exception) {
                 for (let i = 0; i < array.length; i++) {
                     if (array[i] === false) {
                         array[i] = true;
+                        return
                     }
                 }
             }
@@ -272,6 +285,7 @@ function resetStyleBlocks(exception) {
 function toggleFirstScreen() {
     document.querySelector('#preview').classList.toggle('preview--active');
     document.querySelector('.handle__background').classList.toggle('handle__background--blur');
+    document.querySelector('.handle__info').classList.toggle('handle__info--hide');
     // document.querySelector('.handle__container').classList.toggle('handle__container--lock');
     document.querySelectorAll('.handle__left, .handle__right, .handle__middle, .handle__change').forEach(element => {
         element.classList.toggle('handle--events-lock')
@@ -436,6 +450,7 @@ changeAngleButtons.forEach(button => {
                     for (let i = 0; i < array.length; i++) {
                         if (array[i] === false) {
                             array[i] = true;
+                            return
                         }
                     }
                 }
@@ -466,10 +481,12 @@ changeAngleButtons.forEach(button => {
         }
         
         async function waitNewImage() {
+            toggleSpecialLoader()
             toggleImages();
             toggleLoader();
             await setNewImage();
             setLocalSet();
+            toggleSpecialLoader();
             toggleLoader();
             toggleImages();
             setLocalInfo();
@@ -490,18 +507,30 @@ const closeStyleBlock = document.querySelector('.handle__style-close');
 styleBlocks.forEach(element => {
     function toggleBlock() {
         resetStyleBlocks(element);
-
-        console.log(element);
+        
         if (!element.classList.contains('handle__icon--hover')) {
             element.querySelector('.handle__icon--hover').classList.toggle('handle__icon--clicked');
         } else {
             element.classList.toggle('handle__icon--clicked');
         }
-        element.querySelector('.handle__style').classList.toggle('handle__style--active');
+
+        // setTimeout if for listener below
+        setTimeout(function() {
+            element.querySelector('.handle__style').classList.toggle('handle__style--active');
+        }, 0)
     }
+
+    window.addEventListener('click', function(e) {
+        if (element.classList.contains('handle-style--js-outside') &&
+            e.currentTarget !== element.querySelector('.handle__style') && 
+            element.querySelector('.handle__style').classList.contains('handle__style--active'))    {
+            resetStyleBlocks();
+        }
+    })
 
     element.addEventListener('click', toggleBlock);
     element.querySelector('.handle__style-close').addEventListener('click', resetStyleBlocks);
+
 
     const changeStyleButtons = element.querySelectorAll('.handle__option');
 
@@ -723,4 +752,104 @@ controlButtons.forEach(element => {
         }
     }
 })
+    const basketButton = document.querySelector('#basket-icon');
+
+
+tippy(basketButton, {
+    // default
+    content: "Перейти в корзину",
+    placement: 'bottom',
+    animation: 'fade',
+    theme: 'handle',
+    arrow: false,
+});
+
+tippy('#share-icon', {
+    content: "Поделиться / Скопировать ссылку",
+    placement: 'right',
+    animation: 'fade',
+    theme: 'handle',
+    arrow: false,
+})
+
+tippy('#hide-icon', {
+    content: "Убрать элементы управления",
+    placement: 'right',
+    animation: 'fade',
+    theme: 'handle',
+    arrow: false,
+})
+
+tippy('#zoom-icon', {
+    content: "Увеличить",
+    placement: 'right',
+    animation: 'fade',
+    theme: 'handle',
+    arrow: false,
+})
+
+tippy('#home-icon', {
+    content: "Вернуться на сайт",
+    placement: 'right',
+    animation: 'fade',
+    theme: 'handle',
+    arrow: false,
+})
+
+tippy('#handle-icon', {
+    content: "Подобрать мебельную ручку",
+    placement: 'right',
+    animation: 'fade',
+    theme: 'handle',
+    arrow: false,
+})
+
+tippy('#detail-icon', {
+    content: "Посмотреть 3D-модель ручки",
+    placement: 'right',
+    animation: 'fade',
+    theme: 'handle',
+    arrow: false,
+})
+
+tippy('.handle__next', {
+    content: "Следующий ракурс кухни",
+    placement: 'left',
+    animation: 'fade',
+    theme: 'handle',
+    arrow: false,
+})
+
+tippy('.handle__prev', {
+    content: "Предыдущий ракурс кухни",
+    placement: 'left',
+    animation: 'fade',
+    theme: 'handle',
+    arrow: false,
+})
+
+tippy('.search__control-3d', {
+    content: "Посмотреть 3D-модель ручки",
+    placement: 'right',
+    animation: 'fade',
+    theme: 'handle',
+    arrow: false,
+})
+
+tippy('.search__control-link', {
+    content: "Перейти в карточку товара",
+    placement: 'right',
+    animation: 'fade',
+    theme: 'handle',
+    arrow: false,
+})
+
+tippy('.search__control-add', {
+    content: "Добавить товар в корзину",
+    placement: 'right',
+    animation: 'fade',
+    theme: 'handle',
+    arrow: false,
+})
+
 });
