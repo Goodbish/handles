@@ -831,7 +831,7 @@ let hadnleTippy = tippy('#handle-icon', {
 
 let detailTippy = tippy('#detail-icon', {
     content: "Посмотреть 3D-модель ручки",
-    placement: 'right',
+    placement: 'bottom',
     animation: 'fade',
     theme: 'handle',
     arrow: false,
