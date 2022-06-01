@@ -524,10 +524,13 @@ styleBlocks.forEach(element => {
         if (element.classList.contains('handle-style--js-outside') &&
             e.currentTarget !== element.querySelector('.handle__style') && 
             element.querySelector('.handle__style').classList.contains('handle__style--active'))    {
-            resetStyleBlocks();
+            this.setTimeout(function() {
+                resetStyleBlocks();
+            }, 0)
+            
         }
     })
-
+    
     element.addEventListener('click', toggleBlock);
     element.querySelector('.handle__style-close').addEventListener('click', resetStyleBlocks);
 
