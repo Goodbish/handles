@@ -52,6 +52,10 @@
         font-family: 'PT Sans', sans-serif;
         color: white;
 
+        @media (max-width: 1600px) {
+            top: 75%;
+        }
+
         &-right {
             position: absolute;
             top: 50%;
