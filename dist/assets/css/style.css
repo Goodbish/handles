@@ -842,6 +842,7 @@ body {
       -webkit-transform: translateX(100%);
           -ms-transform: translateX(100%);
               transform: translateX(100%);
+      z-index: 2;
       border-top: none; }
     .handle__style--left {
       top: 0;
