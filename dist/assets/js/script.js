@@ -780,13 +780,30 @@ tippy('#hide-icon', {
     arrow: false,
 })
 
-tippy('#zoom-icon', {
-    content: "Увеличить",
+tippy('#show-icon', {
+    content: "Показать элементы управления",
     placement: 'right',
     animation: 'fade',
     theme: 'handle',
     arrow: false,
 })
+
+let zoomTippy = tippy('#zoom-icon', {
+    content: "Увеличить",
+    placement: 'right',
+    animation: 'fade',
+    theme: 'handle',
+    arrow: false,
+    onShow(instance) {
+        if (document.querySelector('#zoom-icon').classList.contains('handle-zoom--active')) {
+            zoomTippy[0].setContent('Уменьшить');
+        } else {
+            zoomTippy[0].setContent('Увеличить');
+        }
+    },
+})
+
+console.log(zoomTippy);
 
 tippy('#home-icon', {
     content: "Вернуться на сайт",
@@ -796,21 +813,32 @@ tippy('#home-icon', {
     arrow: false,
 })
 
-tippy('#handle-icon', {
+let hadnleTippy = tippy('#handle-icon', {
     content: "Подобрать мебельную ручку",
     placement: 'right',
     animation: 'fade',
     theme: 'handle',
     arrow: false,
+    onShow(instance) {
+        if (document.querySelector('#handle-icon .handle__style').classList.contains('handle__style--active')) {
+            hadnleTippy.hide();
+        }
+    },
 })
 
-tippy('#detail-icon', {
+let detailTippy = tippy('#detail-icon', {
     content: "Посмотреть 3D-модель ручки",
     placement: 'right',
     animation: 'fade',
     theme: 'handle',
     arrow: false,
+    onShow(instance) {
+        if (document.querySelector('#detail-icon .handle__style').classList.contains('handle__style--active')) {
+            detailTippy.hide();
+        }
+    },
 })
+
 
 tippy('.handle__next', {
     content: "Следующий ракурс кухни",

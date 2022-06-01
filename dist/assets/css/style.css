@@ -383,7 +383,8 @@ body {
   background-color: #dadada;
   color: black;
   font-size: 12px;
-  font-family: 'Roboto', sans-serif; }
+  font-family: 'Roboto', sans-serif;
+  border-radius: 0; }
 
 @-webkit-keyframes previewLoading {
   0% {
@@ -411,6 +412,9 @@ body {
     -webkit-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
+    -webkit-transition-delay: 0.3s;
+         -o-transition-delay: 0.3s;
+            transition-delay: 0.3s;
     pointer-events: none;
     opacity: 0; }
     .handle .preview--active {
@@ -1168,10 +1172,24 @@ body {
     .handle__info-text {
       font-size: 12px; }
     .handle__info-color {
+      position: relative;
       width: 16px;
       height: 16px;
       margin: 0 10px;
       border-radius: 50%; }
+      .handle__info-color::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        -webkit-box-shadow: 0 0 0 1px #1fbeca;
+                box-shadow: 0 0 0 1px #1fbeca; }
   .handle-zoom svg path {
     -webkit-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
