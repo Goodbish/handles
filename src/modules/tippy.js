@@ -67,7 +67,7 @@ let hadnleTippy = tippy('#handle-icon', {
     arrow: false,
     onShow(instance) {
         if (document.querySelector('#handle-icon .handle__style').classList.contains('handle__style--active')) {
-            hadnleTippy.hide();
+            return false
         }
     },
 })
@@ -80,7 +80,7 @@ let detailTippy = tippy('#detail-icon', {
     arrow: false,
     onShow(instance) {
         if (document.querySelector('#detail-icon .handle__style').classList.contains('handle__style--active')) {
-            detailTippy.hide();
+            return false
         }
     },
 })
