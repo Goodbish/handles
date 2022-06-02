@@ -915,6 +915,7 @@ let rightFullScreen = tippy('.full-screen.handle__right-item', {
 fullScreenButtons.forEach((button) => {
   button.addEventListener("click", () => {
     toggleFullScreen();
+    toggleFullScreenIcons();
   });
 });
 
@@ -952,4 +953,12 @@ function toggleFullScreenButton() {
     })
 }
 
+
+const fullScreenIcons = document.querySelectorAll('.handle__left-item.full-screen .handle__icon, .handle__right-item.full-screen .handle__right-icon');
+
+function toggleFullScreenIcons() {
+    fullScreenIcons.forEach(element => {
+        element.classList.toggle('handle__icon--active')
+    })
+}
 });

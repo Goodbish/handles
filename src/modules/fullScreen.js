@@ -3,6 +3,7 @@ const fullScreenButtons = document.querySelectorAll(".full-screen");
 fullScreenButtons.forEach((button) => {
   button.addEventListener("click", () => {
     toggleFullScreen();
+    toggleFullScreenIcons();
   });
 });
 
@@ -37,5 +38,14 @@ function toggleFullScreen() {
 function toggleFullScreenButton() {
     fullScreenButtons.forEach(element => {
         element.classList.toggle('full-screen--active');
+    })
+}
+
+
+const fullScreenIcons = document.querySelectorAll('.handle__left-item.full-screen .handle__icon, .handle__right-item.full-screen .handle__right-icon');
+
+function toggleFullScreenIcons() {
+    fullScreenIcons.forEach(element => {
+        element.classList.toggle('handle__icon--active')
     })
 }
