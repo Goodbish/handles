@@ -582,6 +582,10 @@ body {
       opacity: 0; }
       .handle .preview__button--show {
         opacity: 1; }
+      .handle .preview__button:hover {
+        opacity: 0.7; }
+      .handle .preview__button:active {
+        opacity: 0.5; }
   .handle__container {
     width: -webkit-fit-content;
     width: -moz-fit-content;
@@ -1011,6 +1015,10 @@ body {
     .handle__change--hide {
       opacity: 0;
       pointer-events: none; }
+    .handle__change:hover {
+      opacity: 0.7; }
+    .handle__change:active {
+      opacity: 0.5; }
   .handle__next {
     right: 0; }
   .handle__prev {

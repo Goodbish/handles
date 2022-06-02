@@ -125,3 +125,30 @@ tippy('.search__control-add', {
     theme: 'handle',
     arrow: false,
 })
+
+let leftFullScreen = tippy('.full-screen.handle__left-item', {
+    content: "Развернуть на весь экран",
+    placement: 'right',
+    animation: 'fade',
+    theme: 'handle',
+    arrow: false,
+    onShow(instance) {
+        if (document.querySelector('.full-screen').classList.contains('full-screen--active')) {
+            leftFullScreen[0].setContent('Выйти из полноэкранного режима')
+        }
+    },
+})
+
+let rightFullScreen = tippy('.full-screen.handle__right-item', {
+    content: "Развернуть на весь экран",
+    placement: 'bottom',
+    animation: 'fade',
+    theme: 'handle',
+    arrow: false,
+    onShow(instance) {
+        if (document.querySelector('.full-screen').classList.contains('full-screen--active')) {
+            rightFullScreen[0].setContent('Выйти из полноэкранного режима')
+        }
+    },
+})
+
