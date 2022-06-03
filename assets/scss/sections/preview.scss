@@ -171,11 +171,15 @@
         color: white;
         cursor: pointer;
         text-align: center;
-        transition: all 0.3s ease;
+        transition: opacity 0.3s ease;
         opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
 
         &--show {
             opacity: 1;
+            visibility: visible;
+            pointer-events: all;
         }
 
         &:hover {
