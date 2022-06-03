@@ -936,8 +936,7 @@ body {
               align-items: center;
       padding: 5px;
       background: black;
-      -ms-flex-negative: 0;
-          flex-shrink: 0; }
+      width: 23px; }
     .handle__middle-item {
       display: -webkit-box;
       display: -ms-flexbox;
