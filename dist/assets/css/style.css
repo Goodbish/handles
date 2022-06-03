@@ -935,7 +935,8 @@ body {
           -ms-flex-align: center;
               align-items: center;
       padding: 5px;
-      background: black; }
+      background: black;
+      width: 100%; }
     .handle__middle-item {
       display: -webkit-box;
       display: -ms-flexbox;
