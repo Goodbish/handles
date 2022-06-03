@@ -332,6 +332,7 @@ html {
 body {
   font-family: 'Roboto', sans-serif;
   min-height: 100vh;
+  background: lightgray;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex; }
@@ -403,7 +404,6 @@ body {
             transform: rotate(360deg); } }
 
 .handle {
-  background: lightgray;
   width: 100%;
   overflow: auto; }
   .handle .preview {
@@ -592,7 +592,6 @@ body {
     width: fit-content;
     min-width: 1280px;
     min-height: 720px;
-    width: 100%;
     overflow: hidden;
     position: relative;
     margin: 0 auto;
@@ -1768,6 +1767,8 @@ body {
     position: absolute;
     top: 10px;
     right: 10px; }
+    .detail__close svg path {
+      fill: white !important; }
   .detail__button {
     outline: none;
     border: none;

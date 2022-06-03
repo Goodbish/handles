@@ -135,6 +135,8 @@ let leftFullScreen = tippy('.full-screen.handle__left-item', {
     onShow(instance) {
         if (document.querySelector('.full-screen').classList.contains('full-screen--active')) {
             leftFullScreen[0].setContent('Выйти из полноэкранного режима')
+        }else {
+            leftFullScreen[0].setContent('Развернуть на весь экран')
         }
     },
 })
@@ -148,6 +150,8 @@ let rightFullScreen = tippy('.full-screen.handle__right-item', {
     onShow(instance) {
         if (document.querySelector('.full-screen').classList.contains('full-screen--active')) {
             rightFullScreen[0].setContent('Выйти из полноэкранного режима')
+        } else {
+            rightFullScreen[0].setContent('Развернуть на весь экран')
         }
     },
 })

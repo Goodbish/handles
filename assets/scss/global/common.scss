@@ -25,6 +25,7 @@ html {
 body {
 	font-family: 'Roboto', sans-serif;
 	min-height: 100vh;
+	background: lightgray;
 	display: flex;
 
 	@media (max-width: 576px) {

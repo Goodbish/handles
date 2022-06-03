@@ -9,15 +9,6 @@ changeAngleButtons.forEach(button => {
 
         // set local angle index
         localStorage.setItem('angle', globalSlideIndex);
-
-        // set loading text
-        if (button.classList.contains('handle__next')) {
-            loaderType.innerText = `следующий интерьер`;
-            loaderItem.innerText = ``;
-        } else {
-            loaderType.innerText = `предыдущий интерьер`;
-            loaderItem.innerText = ``;
-        }
         
         // get all active images to change
     
