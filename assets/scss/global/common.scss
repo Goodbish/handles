@@ -50,40 +50,40 @@ body {
 }
 
 .main {
-	width: 100%;
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
 }
 
-/* width */
-::-webkit-scrollbar {
-    width: 10px;
-}
+// /* width */
+// ::-webkit-scrollbar {
+//     width: 10px;
+// }
 
-/* Track */
-::-webkit-scrollbar-track {
-    background: rgba(200, 203, 205, 0.502); 
-    width: 5px;
-}
+// /* Track */
+// ::-webkit-scrollbar-track {
+//     background: rgba(200, 203, 205, 0.502); 
+//     width: 5px;
+// }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: rgb(178, 179, 182); 
-    width: 7px;
-}
+// /* Handle */
+// ::-webkit-scrollbar-thumb {
+//     background: rgb(178, 179, 182); 
+//     width: 7px;
+// }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-}
+// /* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover {
+//     background: #555; 
+// }
 
-.tippy-box[data-theme~='handle'] {
-	background-color: #dadada;
-	color: black;
-	font-size: 12px;
-	font-family: 'Roboto', sans-serif;
-	border-radius: 0;
+// .tippy-box[data-theme~='handle'] {
+// 	background-color: #dadada;
+// 	color: black;
+// 	font-size: 12px;
+// 	font-family: 'Roboto', sans-serif;
+// 	border-radius: 0;
 
-	// .tippy-content {
-	// 	padding: 20px 12px;
-	// }
-}
+// 	// .tippy-content {
+// 	// 	padding: 20px 12px;
+// 	// }
+// }

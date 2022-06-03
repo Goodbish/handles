@@ -1,4 +1,6 @@
 
+@@include('./lib/simplebar.js')
+
 document.addEventListener("DOMContentLoaded", function(event) { 
     @@include('./modules/global.js')
     @@include('./modules/screen.js')
@@ -11,4 +13,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
     @@include('./modules/showMessage.js')
     @@include('./modules/tippy.js')
     @@include('./modules/fullScreen.js')
+    @@include('./modules/scrollbar.js')
 });
