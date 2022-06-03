@@ -1387,7 +1387,7 @@ body {
               column-gap: 10px; }
       .handle__info-item + .handle__info-item::before {
         content: '/';
-        padding: 0 10px; }
+        padding-left: 10px; }
     .handle__info-title {
       color: #4b4b4d; }
     .handle__info-text {
