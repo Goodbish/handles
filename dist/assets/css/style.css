@@ -551,7 +551,7 @@ html {
 
 body {
   font-family: 'Roboto', sans-serif;
-  min-height: 100vh;
+  height: 100vh;
   background: lightgray;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -791,14 +791,14 @@ body {
     width: -webkit-fit-content;
     width: -moz-fit-content;
     width: fit-content;
-    height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
     min-width: 1280px;
     min-height: 720px;
     overflow: hidden;
     position: relative;
     margin: 0 auto;
-    aspect-ratio: 16/9;
-    max-height: 100vh; }
+    aspect-ratio: 16/9; }
     .handle__container--lock {
       pointer-events: none; }
     .handle__container--zoom-cursor {
